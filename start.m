@@ -1,3 +1,9 @@
+clc
+clear all
+% locate paths and functions
+root_path = fileparts(fileparts(mfilename('fullpath')));
+addpath(genpath(fullfile(root_path,'SilversightCohortDatasetGeneration','functions')));
+
 % this script will execute all functions whose flags are set to true to process data for each experiment individually 
 each_experimet_data_generator;
 

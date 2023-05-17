@@ -1,15 +1,15 @@
 function cohort_DATASET_TABLE = compute_Cohort_Dataset_Age(cohort_DATASET_TABLE, dm_TABLE)
 %COMPUTE_COHORT_DATASET_AGE     
+try
     disp('  Begin compute age');     
-    conf; % calling the conf script for flags, data paths and columns' names
+    config(); % calling the config script for flags, data paths and columns' names
     % using the RFOK data because it is the experiment with the highest number of data
-    FILE_NAME = dir(fullfile(PROCESSED_DATA_DIR,'*RFOK*.xlsx'));
-    rfok_TABLE = readtable([FILE_NAME(1).folder '\' FILE_NAME(1).name]);  
+    FILE_NAME = dir(fullfile(ECRF_DATA_DIR,'RFOK.xlsx')); 
+    rfok_TABLE = readtable(fullfile(FILE_NAME(1).folder,FILE_NAME(1).name));  
     rfok_TABLE=rfok_TABLE(:,[4 42]);
     rfok_TABLE.Properties.VariableNames = RFOK_VARIABLE_NAMES;
-    rfok_TABLE=removeDuplicities(rfok_TABLE);
+    rfok_TABLE=removeDuplicates(rfok_TABLE);
     cohort_DATASET_TABLE = outerjoin(cohort_DATASET_TABLE,rfok_TABLE,'Keys','Identifiant','MergeKeys',true); 
-    
     
     cohort_DATASET_TABLE.Age=zeros(height(cohort_DATASET_TABLE),1);
     % iterate  all DM table one by one
@@ -32,6 +32,9 @@ function cohort_DATASET_TABLE = compute_Cohort_Dataset_Age(cohort_DATASET_TABLE,
     % remove lines with age = 0
     idx = ismember(cohort_DATASET_TABLE{:,end},0);
     cohort_DATASET_TABLE(idx,:)=[];
-    disp('  Computing age finished');     
+    disp('  Computing age finished'); 
+catch err
+   rethrow(err); 
+end
 end
 

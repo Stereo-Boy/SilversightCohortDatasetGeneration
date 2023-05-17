@@ -18,27 +18,26 @@ EXECUTE_OKF_FIXATION=true;
 EXECUTE_ETDRS=true; % new version from eCRF. negative values means better acuity. 2m data is disabled cause there are few subjects  
 EXECUTE_DM=true;
 
-EXECUTE_AUDIOGGRAM=true;
+EXECUTE_AUDIOGRAM=true;
 
 EXECUTE_COG_T=true;
-EXECUTE_VTS=true;
+EXECUTE_WTS=true;
 
 %% other flags 
 % Setting Flags 
 HUE15_ECRF_DATA = 3; % 1: get the eCRF data, 2:get the local xlsx file data, 3: merge both eCRF and xlsx file data   
 PR_ECRF_DATA = 3; % 1: get the eCRF data, 2:get the local xlsx file data, 3: merge both eCRF and xlsx file data   
-VTS_DATA_ONE_FILE_FOR_ALL = 3; % 1: get the one file for all  data, 2:get the multi files data, 3: merge both   
+WTS_DATA_ONE_FILE_FOR_ALL = 3; % 1: get the one file for all  data, 2:get the multi files data, 3: merge both   
 AUDIO_GUI=false; % This is to enable the GUI App that generate the hearing assessment table
 UFOV_ECRF_DATA = 3; % 1: get the eCRF data, 2:get the local xlsx file data, 3: merge both eCRF and xlsx file data   
 
 COMPUTE_AGE=true; % a temporary solution to get age and birthdate since eCRF data is not full yet
 
 %% Data Paths (For Raw and Processed data location settings for each experiment)
-ROOT_DIR = 'F:\BilelProjects\Cohort\CommonFactor\new\Common factor\CohortDatasetGeneration\new\'; % this is the folder where all the data will be 
-RAW_DATA_DIR = [ROOT_DIR 'raw_data_examples\']; % this is the Raw data path. 
-ECRF_DATA_DIR= [ROOT_DIR 'ecrf_data\'];
-LOCAL_DATA_DIR= [ROOT_DIR 'local_data\'];
-PROCESSED_DATA_DIR = [ROOT_DIR 'processed_data_files\']; % this is the Processed data path. 
+ROOT_DIR = fileparts(fileparts(mfilename('fullpath'))); % this is the folder where all the data will be 
+ECRF_DATA_DIR= fullfile(ROOT_DIR, 'ecrf_data'); % this is a raw data path 
+LOCAL_DATA_DIR= fullfile(ROOT_DIR, 'local_data'); % this is a raw data path 
+PROCESSED_DATA_DIR = fullfile(ROOT_DIR, 'processed_data_files'); % this is the processed data path 
 
 
 
@@ -69,7 +68,7 @@ AUDIO_VARIABLE_NAMES = {'Identifiant',...
                     'correct'};
                
 COG_T_VARIABLE_NAMES = {'Identifiant' 'fes' 'ghq' 'mms' 'persp' 'stai'};
-VTS_VARIABLE_NAMES = {'Identifiant' 'age' 'niveauEducation'  'sex' ...
+WTS_VARIABLE_NAMES = {'Identifiant' 'age' 'niveauEducation'  'sex' ...
                         'D3S1CAResponses' 'D3S1WAResponses' ...
                         'TMTS2BTATempsDeTraitementPartieA' 'TMTS2FAErreursPartieA' 'TMTS2BTBTTraitementPartieB' 'TMTS2FBErreursPartieB' 'TMTS2DSCOREDifferenceBA' 'TMTS2QSCOREBA' ...
                         'FGTS11LSSommeApprentissage' 'FGTS11R1PhaseApprentissageCorrecte1' 'FGTS11F1ErreurPhaseApprentissage1'...

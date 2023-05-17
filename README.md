@@ -29,16 +29,22 @@ The project can be configured from the __config.m__ script which is called from 
 * __Column names :__ This part is to set the column names of the processed data tables that are generated.  
 
 ## The Included Experiments
-* [Funtional Visual Assessment](FunctionalVisualAssessment.md)
-* [Funtional Hearing Assessment](FunctionalHearingAssessment.md)
-* [Neuropsychological Examination](NeuropsychologicalExamination.md)
+* Funtional Visual Assessment
+* Funtional Hearing Assessment
+* Neuropsychological Examination
 
 ## Important
--for a smooth execution without erros follow this steps :
-* in the config.m file, change the variable ROOT_DIR value to the location of the raw_data_folder and processed_data_folder (these two are given aside to avoid loading subjects data to the git)
+* in the config.m file, define the flags that you want to include in the dataset to be generated
+* in the config.m file, you can also change the values for ROOT_DIR, ECRF_DATA_DIR (...) if your data files are not located in the folder containing the code
+* in the config.m file, you can also change the names of the columns in the dataset to be generated
 * execute the script start.m which will execute all the steps
 
-## More about the visual assessment
+## More about the different exams and measures
+You can find a full metadata description of the exams and how to interpret them in this document:
+https://docs.google.com/spreadsheets/d/1Nml9NQi2DASU3Kv9ymPHVBKUrO2oFRJ5yCi5-9ClnBA/edit?usp=sharing
+
+## More about the functional visual assessment
+Most of the metadata information is available here: https://docs.google.com/spreadsheets/d/1Nml9NQi2DASU3Kv9ymPHVBKUrO2oFRJ5yCi5-9ClnBA/edit?usp=sharing
 * __A) NEI_VQF (LFSES25, LFVS25, LFSES39, LFVFS39) :__ 
 This experiment Collected raw data are put into an Excel file, and analysed using Excel macros. The Excel processing is written by Karine Lagrene who is not at the lab anymore.
 There are two functions for this experiment :
