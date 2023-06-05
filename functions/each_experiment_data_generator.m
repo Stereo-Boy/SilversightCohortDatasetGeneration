@@ -15,9 +15,8 @@ if EXECUTE_PELLI_ROBSON; process_Pelli_Robson(); end % calling the function "pro
 if EXECUTE_CSF; process_CSF(); end % calling the function process_CSF()
 % BAT (BAT_WithGlare100, BAT_WithoutGlare100, BAT_WithGlare10, BAT_WithoutGlare10, BAT_WithGlare5, and BAT_WithoutGlare5). Processng Done Manually No need for processing function
 if EXECUTE_UFOV; process_UFOV(); end 
-% CQUANT (CQUANT_OD_log, CQUANT_OG_log). Processng Done Manually No need for processing function 
 if EXECUTE_OKF_FIXATION; process_OK_FIX();  end  % calling the function "process_OK_FIX()"
-% ETDRS (VA_OD, VA_OG, VA_BINO) and Dimography info(Gender,...) and DM
+% ETDRS (VA_OD, VA_OG, VA_BINO) and Demography info(Gender,...) DM
 if EXECUTE_ETDRS; process_ETDRS();end  % calling the function "process_ETDRS()"
 if EXECUTE_DM; process_DM(); end % calling the function "process_DM()"
 

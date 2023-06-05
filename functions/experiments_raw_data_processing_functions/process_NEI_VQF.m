@@ -1,6 +1,6 @@
 function process_NEI_VQF()
 %PROCESS_NEI_VQF 
-% this function reads data from LOCAL_DATA_DIR/Analyse-NEI-VQF-date-working_version.xlsm (excel file written by Karine)
+% this function reads data from LOCAL_DATA_DIR/NEI-VQF-date-Analysis_working_version.xlsm (excel file written by Karine)
 % which calculates NEI-VQF scores from patient responses
 % and generate processed_data_files/VQF_data.csv  which contains four scores : NEI-VFQ (LFSES25, LFVS25, LFSES39, LFVFS39)
 try

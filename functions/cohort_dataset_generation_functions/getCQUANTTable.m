@@ -2,7 +2,7 @@ function [new_cquant_TABLE] = getCQUANTTable()
 %GETCQUANTTABLE 
 %the data is manually copied from images to an excel file below.
 try
-    disp('  Begin importing CQUANT  processed data');
+    disp('  Begin importing CQUANT eCRF data');
     % OLD script (Using R ) reads line which have red colored cells (wrong old values) and remove them to keep only recent values. so we only
     % keep most recent values of any duplicate subjectID
     config(); % calling the conf script for flags, data paths and columns' names
@@ -36,8 +36,8 @@ try
             sdata(end,7);
             sdata(end,8);
             cl = {unique_subjects(i),...
-                  str2double(strrep(sdata{end,7},',','.')),...
-                  str2double(strrep(sdata{end,8},',','.'))};
+                  str2double(strrep(sdata{end,7},',','.')),... %log data
+                  str2double(strrep(sdata{end,8},',','.'))}; %log dat
             new_cquant_TABLE  = [new_cquant_TABLE; cl];  
         end
        

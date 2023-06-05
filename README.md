@@ -16,7 +16,7 @@ The following folders are expected at the root of the project, e.g. in the folde
 ### The project starting point 
 The project can be executed from the file __start.m__ in the functions directory. This file in itself calls two scripts :  
 
-#### 1) each_experimet_data_generator (first one called): 
+#### 1) each_experiment_data_generator (first one called): 
 This file call funtions from the folder __experiments_raw_data_processing_functions__ one by one to process the raw data if each experiment. 
 
 #### 2) cohort_dataset_generator (second one called): 
@@ -29,9 +29,21 @@ The project can be configured from the __config.m__ script which is called from 
 * __Column names :__ This part is to set the column names of the processed data tables that are generated.  
 
 ## The Included Experiments
-* Funtional Visual Assessment
-* Funtional Hearing Assessment
-* Neuropsychological Examination
+The datasets include Funtional Visual Assessments, Funtional Hearing Assessments, Neuropsychological Examination...
+Here is a list (for more description, see metadata https://docs.google.com/spreadsheets/d/1Nml9NQi2DASU3Kv9ymPHVBKUrO2oFRJ5yCi5-9ClnBA/edit?usp=sharing)
+*NEI-VQF - needs a NEI-VQF-date xslm file in local folder (which processes the data).
+*PR: Pelli-Robson log contrast sensivity - needs an eCRF file PR.xlsx 
+*CV bino: Binocular cinetic visual field size - needs a local file BINO_data_date.xlsx. These data are processed elsewhere.
+*ETDRS / AV ETDRS ASC: far visual acuities - needs the eCRF file ETDRS.xls 
+*CSF: Constrast Sensitivity Function (actually contrast threshold between 0 and 1, lower scores are better, at different spatial frequencies) - needs local data (xml files in a folder called CSF_DATA in local folder, 2 files for each SS, one MONO, one BINO). 
+*CQUANT - Eye dispersion coefficient (Cataract Quantifier) - needs the eCRF file CQUANT.xlsx - log10 of straylight dispersion
+*DM - Demographic data - sex at birth and date of birth (european format)
+*BAT
+*UFOV
+*OKF_FIXATION
+*AUDIOGRAM
+*COG_T
+*WTS - Wienna Test System
 
 ## Important
 * in the config.m file, define the flags that you want to include in the dataset to be generated
