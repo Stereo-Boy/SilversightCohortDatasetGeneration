@@ -41,8 +41,7 @@ PROCESSED_DATA_DIR = fullfile(ROOT_DIR, 'processed_data'); % this is the process
 
 %% Table Columns' names (for each experiment) - do not change the order of the values
 NEI_VQF_VARIABLE_NAMES = {'Identifiant' 'nei_vqf_ses25' 'nei_vqf_vs25' 'nei_vqf_ses39' 'nei_vqf_vfs39'};
-% PR: the below variables must be in order OD-score, OD-date, OG-score,OG-date, bino-score, bino-date
-PR_VARIABLE_NAMES = {'Identifiant'  'pr_log_od' 'pr_date_od' 'pr_log_og' 'pr_date_og' 'pr_log_bino' 'pr_date_bino'};
+PR_VARIABLE_NAMES = {'Identifiant'  'pr_log_od' 'pr_date_od' 'pr_og' 'pr_bino'};
 HUE15_VARIABLE_NAMES = {'Identifiant' 'hue_od_order' 'hue_og_order' 'hue_od_ci' 'hue_og_ci'};
 BINO_VARIABLE_NAMES = {'Identifiant' 'bino_vf_rt' 'bino_vf_ssrt'};
 CSF_BINO_VARIABLE_NAMES = {'Identifiant' 'bino_sf_05cpd' 'bino_sf_1cpd' 'bino_sf_2cpd' 'bino_sf_4cpd' 'bino_sf_8cpd' 'bino_sf_16cpd' }; %likely that 05cpd means 0.5 cpd

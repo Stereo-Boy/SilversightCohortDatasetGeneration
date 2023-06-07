@@ -1,14 +1,15 @@
 function hue15_TABLE = getHUE15Table()
 
 % this file is typed manualy both on eCRF and the local version 
-
+try
     disp('  Begin importing HUE15 processed data');
     config(); % calling the conf script for flags, data paths and columns' names
     
     % getting eCRF data
     if HUE15_ECRF_DATA==1 || HUE15_ECRF_DATA==3
-        FILE_NAME = dir(fullfile(ECRF_DATA_DIR,'*VC*.xlsx'));
-        hue15_TABLE = readtable(fullfile(FILE_NAME(1).folder, FILE_NAME(1).name));
+        FILE_NAME = fullfile(ECRF_DATA_DIR,'VC.xlsx');
+        check_file(FILE_NAME); % look for eCRF file
+        hue15_TABLE = readtable(FILE_NAME);
         
         % leaving only the saturated test data
         idx=ismember(hue15_TABLE{:,44}, 'Test 15 HUE désaturé');
@@ -124,5 +125,8 @@ function hue15_TABLE = getHUE15Table()
         hue15_TABLE = unique(hue15_TABLE);
     end
     disp('  Importing HUE15 processed data finished');
+catch err
+    keyboard
+end
 end
 

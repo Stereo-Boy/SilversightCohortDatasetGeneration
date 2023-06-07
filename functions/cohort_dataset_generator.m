@@ -56,7 +56,7 @@ if EXECUTE_WTS; cohort_DATASET_TABLE = outerjoin(cohort_DATASET_TABLE,wts_TABLE,
 if COMPUTE_AGE; cohort_DATASET_TABLE = compute_Cohort_Dataset_Age(cohort_DATASET_TABLE, dm_TABLE); end % compute age
 
 % remove 'Evénement indésirable' subjects manualy based on the comments
-idx=~ismember(cohort_DATASET_TABLE{:,1},{'B006ARM14','B039SPA14','B115BUD14','B165MOP14','B368ROM15'});
+idx=~ismember(cohort_DATASET_TABLE{:,1},list2remove);
 cohort_DATASET_TABLE=cohort_DATASET_TABLE(idx,:);
 
 % exporting all data to one excel table "CohortDataSet"

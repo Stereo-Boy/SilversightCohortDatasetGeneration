@@ -16,10 +16,14 @@ function [pr_TABLE] = getPELLI_ROBSONTable()
         % concatenate local and ecrf data
         pr_TABLE  = [pr_TABLE_ECRF; pr_TABLE_LOCAL];
         % split data between OD, OG and bino and remove nan entries
-        pr_data_od = removevars(pr_TABLE,PR_VARIABLE_NAMES(4:7));
-        pr_data_og = removevars(pr_TABLE,PR_VARIABLE_NAMES([2:3,6:7]));
-        pr_data_Binoculaire = removevars(pr_TABLE,PR_VARIABLE_NAMES(2:5));
-                
+        pr_data_od = removevars(pr_TABLE,PR_VARIABLE_NAMES(4:7))
+        pr_data_og = removevars(pr_TABLE,PR_VARIABLE_NAMES([2:3,6:7]))
+        pr_data_Binoculaire = removevars(pr_TABLE,PR_VARIABLE_NAMES([2:5]))
+        table(pr_TABLE.Identifiant, pr_TABLE.PR_log_OD, pr_TABLE.date_OG,'VariableNames',{PR_VARIABLE_NAMES{1}, PR_VARIABLE_NAMES{4}, PR_VARIABLE_NAMES{5}});
+        pr_data_og(isnan(pr_data_og.PR_VARIABLE_NAMES{4}),:)=[];
+        pr_data_Binoculaire = table(pr_TABLE.Identifiant, pr_TABLE.PR_log_OD, pr_TABLE.date_Binoculaire,'VariableNames',{PR_VARIABLE_NAMES{1}, PR_VARIABLE_NAMES{6}, PR_VARIABLE_NAMES{7}});
+        pr_data_Binoculaire(isnan(pr_data_Binoculaire.PR_VARIABLE_NAMES{6}),:)=[];
+        
         % sort the data by ascending dates after converting dates to date
         % format, and puting nat first, and then remove duplicates
         pr_data_od2 = sort_date_unique(pr_data_od,PR_VARIABLE_NAMES{3});
