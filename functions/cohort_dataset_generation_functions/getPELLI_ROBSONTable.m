@@ -22,9 +22,9 @@ function [pr_TABLE] = getPELLI_ROBSONTable()
                 
         % sort the data by ascending dates after converting dates to date
         % format, and puting nat first, and then remove duplicates
-        pr_data_od2 = sort_date_unique(pr_data_od,PR_VARIABLE_NAMES{3});
-        pr_data_og2 = sort_date_unique(pr_data_og,PR_VARIABLE_NAMES{5});
-        pr_data_bino = sort_date_unique(pr_data_Binoculaire,PR_VARIABLE_NAMES{7});
+        pr_data_od2 = sort_date_remove_duplicates(pr_data_od,PR_VARIABLE_NAMES{3}); 
+        pr_data_og2 = sort_date_remove_duplicates(pr_data_og,PR_VARIABLE_NAMES{5});
+        pr_data_bino = sort_date_remove_duplicates(pr_data_Binoculaire,PR_VARIABLE_NAMES{7});
         
         % merge everything back together
         data_merged1 = outerjoin(pr_data_od2,pr_data_og2,'Keys','Identifiant','MergeKeys',true); 
@@ -38,20 +38,3 @@ function [pr_TABLE] = getPELLI_ROBSONTable()
     disp('  Importing PR processed data finished');
 end
 
-function data7 = sort_date_unique(data,datefield)
-        % sort the data by ascending dates after converting dates to date format
-        dates = datetime(table2array(data(:,datefield)));
-        data(:,datefield) = []; 
-        data{:,datefield} = dates;
-        data2 = sortrows(data,datefield);
-        % split by nat and dates, and put the nat first
-        data3 = data2(isnat(table2array(data2(:,datefield))),:);
-        data4 = data2(~isnat(table2array(data2(:,datefield))),:);
-        data5 = [data3;data4];
-        % remove duplicates
-        data6 = removeDuplicates(data5);
-        % retransform the date column as string again
-        data7 = data6;
-        data7(:,datefield)=[];
-        data7(:,datefield)=cellstr(datestr(table2array(data6(:,datefield)),'dd/mm/yyyy'));
-end

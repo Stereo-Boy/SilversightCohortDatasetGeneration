@@ -6,10 +6,30 @@ function compact_data = compacting(data, subject, column2develop,columnDate,VD_c
 % subject indicates the name of the subject's ID column
 % column2develop indicates the name of the column to develop. It should store the values that will be developped as columns 
 % in the compact (wide) format.
-% columnDate indicates the name of the column with dates.
+% columnDate indicates the name of the column with dates
 % VD_columns indicates the name or a cell of names with the variables to use as VD - for the moment, the code only tolerates one column.
+try
 values = table2array(unique(data(:,column2develop))); % values of the column to develop.
-values(cellfun(@isempty,values))=[]; %clean up empty values
+if isnumeric(values(1)) || istr(values(1))
+    values(isempty(values))=[];
+    if isnumeric(values(1))
+        values=cellstr(num2str(values));
+        tmp = cellstr(num2str(table2array(data(:,column2develop))));
+        data(:,column2develop) = [];
+        data(:,column2develop) = tmp;
+    else
+        values=cellstr(values); 
+    end
+else
+    values(cellfun(@isempty,values))=[]; %clean up empty values
+end
+
+if isdatetime(data(1,columnDate))==0
+    tmp = datetime(table2array(data(:,columnDate)));
+    data(:,columnDate) = [];
+    data(:,columnDate) = table(tmp);
+end
+    
 develop_values = table2array(data(:,column2develop));
     for i=1:numel(values)
         dateCol = [columnDate,'_',values{i}];
@@ -28,4 +48,8 @@ develop_values = table2array(data(:,column2develop));
             compact_data = outerjoin(compact_data,pp6,'Type','full','Keys',subject,'MergeKeys',true); 
         end
     end
+catch err
+   keyboard
+   rethrow(err)
+end
 end

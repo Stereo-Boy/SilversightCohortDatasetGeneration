@@ -38,7 +38,7 @@ Here is a list (for more description, see metadata https://docs.google.com/sprea
 *CSF: Constrast Sensitivity Function (actually contrast threshold between 0 and 1, lower scores are better, at different spatial frequencies) - needs local data (xml files in a folder called CSF_DATA in local folder, 2 files for each SS, one MONO, one BINO). 
 *CQUANT - Eye dispersion coefficient (Cataract Quantifier) - needs the eCRF file CQUANT.xlsx - log10 of straylight dispersion
 *DM - Demographic data - sex at birth and date of birth (european format)
-*BAT
+*BAT - BAT measures the loss of acuity due to glare illumation (in logmar) - needs the eCRF file ETDRS.xls and can also have a local file with BAT in its name.
 *UFOV
 *OKF_FIXATION
 *AUDIOGRAM
