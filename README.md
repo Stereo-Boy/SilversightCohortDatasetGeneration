@@ -39,6 +39,7 @@ Here is a list (for more description, see metadata https://docs.google.com/sprea
 *CQUANT - Eye dispersion coefficient (Cataract Quantifier) - needs the eCRF file CQUANT.xlsx - log10 of straylight dispersion
 *DM - Demographic data - sex at birth and date of birth (european format)
 *BAT - BAT measures the loss of acuity due to glare illumation (in logmar) - needs the eCRF file ETDRS.xls and can also have a local file with BAT in its name.
+*STEREO - stereo data (eRDS, upper disparity limit, Asteroid, butterfly stereoblindness test) - needs a local file stereo_master_file_XXXXXXXXX.xlsx and a correspondance table basecorrespondance.xlsx with animal/vegetal codings
 *UFOV
 *OKF_FIXATION
 *AUDIOGRAM

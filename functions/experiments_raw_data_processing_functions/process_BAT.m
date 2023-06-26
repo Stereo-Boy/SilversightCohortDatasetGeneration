@@ -32,7 +32,7 @@ try
             saveFile = fullfile(PROCESSED_DATA_DIR, 'BAT_eCRF_Processed.xlsx');
             writetable(bat_table,saveFile);
         end
-         disp('  Data processing for BAT');
+         disp('  Data processing for BAT finished');
     end
    
 catch err
