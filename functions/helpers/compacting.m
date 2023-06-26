@@ -10,7 +10,7 @@ function compact_data = compacting(data, subject, column2develop,columnDate,VD_c
 % VD_columns indicates the name or a cell of names with the variables to use as VD - for the moment, the code only tolerates one column.
 try
 values = table2array(unique(data(:,column2develop))); % values of the column to develop.
-if isnumeric(values(1)) || istr(values(1))
+if isnumeric(values(1)) || ischar(values(1))
     values(isempty(values))=[];
     if isnumeric(values(1))
         values=cellstr(num2str(values));

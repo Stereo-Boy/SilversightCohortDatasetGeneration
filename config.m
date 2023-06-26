@@ -6,20 +6,20 @@
 warning off;
 
 %% Flags (true means the experiment data will be processed and added to the Cohort data set)
-EXECUTE_NEI_VQF=false; % NEI-VQF. ?negative 0 to -5 instead of 0-100 where 100 is good? You will need a NEI-VQF-date xslm file in local folder.
-EXECUTE_PELLI_ROBSON=false; % PR - Pelli-Robson log contrast sensivity - needs an eCRF file PR.xlsx - higher score is better. 2 is normal, less than 2 is poor. less than 1.5 is impaired. less than 1 is disablity
-EXECUTE_HUE15=false; % both eCRF and local. using confusion index 1 is good, more than one means less good. values 1-3  
-EXECUTE_BINO=false; % binocular cinetic visual field size - needs a local file BINO_data_date.xlsx
-EXECUTE_ETDRS=false; % ETDRS / AV ETDRS ASC: far visual acuities - needs the eCRF file ETDRS.xls - negative values means better acuity. 2m data is disabled cause there are few subjects 
-EXECUTE_CSF=false; % Constrast Sensitivity Function (actually contrast threshold between 0 and 1, lower scores are better, at different spatial frequencies) - needs local data (xml files in a folder called CSF_DATA in local folder, 2 files for each SS, one MONO, one BINO). 
-EXECUTE_CQUANT = false; % Eye dispersion coefficient (Cataract Quantifier) - needs the eCRF file CQUANT.xlsx - lines with comments removed - log10 of straylight dispersion
+EXECUTE_NEI_VQF=true; % NEI-VQF. ?negative 0 to -5 instead of 0-100 where 100 is good? You will need a NEI-VQF-date xslm file in local folder.
+EXECUTE_PELLI_ROBSON=true; % PR - Pelli-Robson log contrast sensivity - needs an eCRF file PR.xlsx - higher score is better. 2 is normal, less than 2 is poor. less than 1.5 is impaired. less than 1 is disablity
+EXECUTE_HUE15=true; % both eCRF and local. using confusion index 1 is good, more than one means less good. values 1-3  
+EXECUTE_BINO=true; % binocular cinetic visual field size - needs a local file BINO_data_date.xlsx
+EXECUTE_ETDRS=true; % ETDRS / AV ETDRS ASC: far visual acuities - needs the eCRF file ETDRS.xls - negative values means better acuity. 2m data is disabled cause there are few subjects 
+EXECUTE_CSF=true; % Constrast Sensitivity Function (actually contrast threshold between 0 and 1, lower scores are better, at different spatial frequencies) - needs local data (xml files in a folder called CSF_DATA in local folder, 2 files for each SS, one MONO, one BINO). 
+EXECUTE_CQUANT = true; % Eye dispersion coefficient (Cataract Quantifier) - needs the eCRF file CQUANT.xlsx - lines with comments removed - log10 of straylight dispersion
 EXECUTE_DM = true; % This should always be true - Demographic data - sex at birth and date of birth (european format)
-EXECUTE_UFOV=false; %  
-EXECUTE_BAT=false;  % BAT measures the loss of acuity due to glare illumation (in logmar) - needs the eCRF file ETDRS.xls and can also have a local file with BAT in its name.
-EXECUTE_OKF_FIXATION=false;
-EXECUTE_AUDIOGRAM=false;
-EXECUTE_COG_T=false;
-EXECUTE_WTS=false; % Wienna Test System
+EXECUTE_UFOV=true; %  
+EXECUTE_BAT=true;  % BAT measures the loss of acuity due to glare illumation (in logmar) - needs the eCRF file ETDRS.xls and can also have a local file with BAT in its name.
+EXECUTE_OKF_FIXATION=true;
+EXECUTE_AUDIOGRAM=true;
+EXECUTE_COG_T=true;
+EXECUTE_WTS=true; % Wienna Test System
 EXECUTE_STEREO=true; % STEREO: stereo data (eRDS, upper disparity limit, Asteroid, butterfly stereoblindness test) - needs a local file stereo_master_file_XXXXXXXXX.xlsx and a correspondance table basecorrespondance.xlsx with animal/vegetal codings
 
 %% other flags 
