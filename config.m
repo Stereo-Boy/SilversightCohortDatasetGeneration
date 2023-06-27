@@ -3,23 +3,23 @@
 %  2 - RAW Data and Processed Data folders' paths
 %  3 - Tables Column names 
 
-warning off;
+%warning off;
 
 %% Flags (true means the experiment data will be processed and added to the Cohort data set)
-EXECUTE_NEI_VQF=true; % NEI-VQF. ?negative 0 to -5 instead of 0-100 where 100 is good? You will need a NEI-VQF-date xslm file in local folder.
-EXECUTE_PELLI_ROBSON=true; % PR - Pelli-Robson log contrast sensivity - needs an eCRF file PR.xlsx - higher score is better. 2 is normal, less than 2 is poor. less than 1.5 is impaired. less than 1 is disablity
-EXECUTE_HUE15=true; % both eCRF and local. using confusion index 1 is good, more than one means less good. values 1-3  
-EXECUTE_BINO=true; % binocular cinetic visual field size - needs a local file BINO_data_date.xlsx
-EXECUTE_ETDRS=true; % ETDRS / AV ETDRS ASC: far visual acuities - needs the eCRF file ETDRS.xls - negative values means better acuity. 2m data is disabled cause there are few subjects 
+EXECUTE_NEI_VQF=false; % NEI-VQF. ?negative 0 to -5 instead of 0-100 where 100 is good? You will need a NEI-VQF-date xslm file in local folder.
+EXECUTE_PELLI_ROBSON=false; % PR - Pelli-Robson log contrast sensivity - needs an eCRF file PR.xlsx - higher score is better. 2 is normal, less than 2 is poor. less than 1.5 is impaired. less than 1 is disablity
+EXECUTE_HUE15=false; % both eCRF and local. using confusion index 1 is good, more than one means less good. values 1-3  
+EXECUTE_BINO=false; % binocular cinetic visual field size - needs a local file BINO_data_date.xlsx
+EXECUTE_ETDRS=false; % ETDRS / AV ETDRS ASC: far visual acuities - needs the eCRF file ETDRS.xls - negative values means better acuity. 2m data is disabled cause there are few subjects 
 EXECUTE_CSF=true; % Constrast Sensitivity Function (actually contrast threshold between 0 and 1, lower scores are better, at different spatial frequencies) - needs local data (xml files in a folder called CSF_DATA in local folder, 2 files for each SS, one MONO, one BINO). 
-EXECUTE_CQUANT = true; % Eye dispersion coefficient (Cataract Quantifier) - needs the eCRF file CQUANT.xlsx - lines with comments removed - log10 of straylight dispersion
+EXECUTE_CQUANT = false; % Eye dispersion coefficient (Cataract Quantifier) - needs the eCRF file CQUANT.xlsx - lines with comments removed - log10 of straylight dispersion
 EXECUTE_DM = true; % This should always be true - Demographic data - sex at birth and date of birth (european format)
-EXECUTE_UFOV=true; %  
-EXECUTE_BAT=true;  % BAT measures the loss of acuity due to glare illumation (in logmar) - needs the eCRF file ETDRS.xls and can also have a local file with BAT in its name.
-EXECUTE_OKF_FIXATION=true;
-EXECUTE_AUDIOGRAM=true;
-EXECUTE_COG_T=true;
-EXECUTE_WTS=true; % Wienna Test System
+EXECUTE_UFOV=false; %  
+EXECUTE_BAT=false;  % BAT measures the loss of acuity due to glare illumation (in logmar) - needs the eCRF file ETDRS.xls and can also have a local file with BAT in its name.
+EXECUTE_OKF_FIXATION=false;
+EXECUTE_AUDIOGRAM=false;
+EXECUTE_COG_T=false;
+EXECUTE_WTS=false; % Wienna Test System
 EXECUTE_STEREO=true; % STEREO: stereo data (eRDS, upper disparity limit, Asteroid, butterfly stereoblindness test) - needs a local file stereo_master_file_XXXXXXXXX.xlsx and a correspondance table basecorrespondance.xlsx with animal/vegetal codings
 
 %% other flags 
@@ -47,8 +47,8 @@ NEI_VQF_VARIABLE_NAMES = {'Identifiant' 'nei_vqf_ses25' 'nei_vqf_vs25' 'nei_vqf_
 PR_VARIABLE_NAMES = {'Identifiant'  'pr_log_od' 'pr_date_od' 'pr_log_og' 'pr_date_og' 'pr_log_bino' 'pr_date_bino'};
 HUE15_VARIABLE_NAMES = {'Identifiant' 'hue_od_order' 'hue_og_order' 'hue_od_ci' 'hue_og_ci'};
 BINO_VARIABLE_NAMES = {'Identifiant' 'bino_vf_rt' 'bino_vf_ssrt'};
-CSF_BINO_VARIABLE_NAMES = {'Identifiant' 'bino_sf_05cpd' 'bino_sf_1cpd' 'bino_sf_2cpd' 'bino_sf_4cpd' 'bino_sf_8cpd' 'bino_sf_16cpd' }; %likely that 05cpd means 0.5 cpd
-CSF_MONO_VARIABLE_NAMES = {'Identifiant' 'mono_sf_05cpd' 'mono_sf_1cpd' 'mono_sf_2cpd' 'mono_sf_4cpd' 'mono_sf_8cpd' 'mono_sf_16cpd' }; %likely that 05cpd means 0.5 cpd
+CSF_BINO_VARIABLE_NAMES = {'Identifiant' 'csf_bino_05cpd' 'csf_bino_1cpd' 'csf_bino_2cpd' 'csf_bino_4cpd' 'csf_bino_8cpd' 'csf_bino_16cpd' 'csf_bino_date'}; %likely that 05cpd means 0.5 cpd
+CSF_MONO_VARIABLE_NAMES = {'Identifiant' 'csf_mono_05cpd' 'csf_mono_1cpd' 'csf_mono_2cpd' 'csf_mono_4cpd' 'csf_mono_8cpd' 'csf_mono_16cpd' 'csf_mono_date'}; %likely that 05cpd means 0.5 cpd
 BAT_VARIABLE_NAMES = {'Identifiant' 'bat_100' 'bat_10' 'bat_5','bat_date'}; % BAT columns in output file
 BAT_OG_VARIABLE_NAMES = {'Identifiant' 'bat_wg100' 'bat_g100' 'bat_wg10' 'bat_g10' 'bat_wg5' 'bat_g5' 'bat_date'}; %necessary to process local data (legacy code)
 UFOV_VARIABLE_NAMES = {'Identifiant' 'ufov_da' 'ufov_ps' 'ufov_sa'}; 
