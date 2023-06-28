@@ -4,15 +4,15 @@ function process_DM()
 % !!! here in the xlsx file, there is only subject number and gender
 % !!! but for some reason the matlab show lots of fields when using readtable()
 
-    disp('  Begin data processing for demographic information ');
+    disp('  Begin data processing for DM - demographic information ');
     config(); % calling the conf script to get tables columns (VariableNames) 
 	   
-    dm_path = dir(fullfile(ECRF_DATA_DIR ,"**/*DM*.xlsx"));
-    
-    dm_file_found = size(dm_path);
+    file = fullfile(ECRF_DATA_DIR ,"DM.xlsx");
+    if check_file(file)
     % execute only if there is an DM raw data file
-    if dm_file_found(1)
-        dm_data = readtable(fullfile(dm_path(1).folder,dm_path(1).name));
+        warning off
+        dm_data = readtable(file);
+        warning on
         dm_data=dm_data(:,[4 13 12]);
         dm_new_table  = cell2table(cell(0,3), 'VariableNames', DM_VARIABLE_NAMES);
         for i=1:length(dm_data.SubjectNumber)
@@ -24,12 +24,14 @@ function process_DM()
             else
                 s_sex = NaN;
             end
-            cl = {char(table2array(dm_data(i, 1))), s_sex, {datestr(datenum(dm_data{i,3},'dd/mm/yyyy'),' dd/mm/yyyy')}};
+            cl = {char(table2array(dm_data(i, 1))), s_sex, {datestr(datenum(dm_data{i,3},'dd/MM/yyyy'),' dd/MM/yyyy')}};
             dm_new_table  = [dm_new_table; cl];         
         end
         %writetable(dm_new_table, [PROCESSED_DATA_DIR 'DM_' strrep(datestr(datetime('today'),'dd-mm-yyyy'), '-','') '.xlsx']);
         writetable(dm_new_table, fullfile(PROCESSED_DATA_DIR, 'DM.xlsx'));
+    else
+       disp(['File not found - we skip: ',file]) 
     end
-    disp('  Data processing for demographic information');
+    disp('  Data processing for DM - demographic information');
 end
 

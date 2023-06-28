@@ -4,6 +4,9 @@ try
     config(); % calling the conf script to get tables columns (VariableNames) 
     
     CSF = repmat(struct('Identifiant','XXX', 'SF_05cpd', '', 'SF_1cpd', '', 'SF_2cpd','','SF_4cpd','','SF_8cpd','','SF_16cpd','','SF_date',''),length(files),1);
+    if numel(files)==0
+       disp('No files found - we skip CSF.')  
+    end
     % for each subject
     for i = 1 : length(files)
         [~, subjectNumber, ~] = fileparts(files{i});

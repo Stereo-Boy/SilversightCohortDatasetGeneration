@@ -8,9 +8,10 @@ try
     if BAT_ECRF_DATA==1 || BAT_ECRF_DATA==3 %process only if flag is on
     bat_path = fullfile(ECRF_DATA_DIR,'ETDRS.xlsx'); % BAT data are actually in the ETDRS eCRF file
     % execute only if there is an ETDRS raw data file
-        if check_file(bat_path, 1)
-
+        if check_file(bat_path)
+            warning off
             data = readtable(bat_path);
+            warning on
             % select interesting columns
             bat_data = table(data.SubjectNumber,data.FormId,data.ItemGroupRepeatedId,data.x_ETDRS_SCAVLOGMAR_ScoreAVLogMAR,data.x_ETDRSDT_ETDRSDate,'VariableNames',{'id','formid','itemid','score','date'});
             % remove lines from other exams (etdrs) to keep only bat exams
@@ -31,6 +32,8 @@ try
                 compact_data.date_1,'VariableNames',BAT_VARIABLE_NAMES);
             saveFile = fullfile(PROCESSED_DATA_DIR, 'BAT_eCRF_Processed.xlsx');
             writetable(bat_table,saveFile);
+        else
+            disp(['File not found - we skip: ',bat_path]) 
         end
          disp('  Data processing for BAT finished');
     end

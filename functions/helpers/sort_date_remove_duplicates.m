@@ -17,5 +17,5 @@ function data7 = sort_date_remove_duplicates(data,datefield)
         % retransform the date column as string again
         data7 = data6;
         data7(:,datefield)=[];
-        data7(:,datefield)=cellstr(datestr(table2array(data6(:,datefield)),'dd/mm/yyyy'));
+        data7(:,datefield)=cellstr(datestr(table2array(data6(:,datefield)),'dd/MM/yyyy'));
 end

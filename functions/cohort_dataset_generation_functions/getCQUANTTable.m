@@ -15,32 +15,35 @@ try
 %     cquant_TABLE.Properties.VariableNames = CQUANT_VARIABLE_NAMES;
 %     disp('  Importing CQUANT processed data finished');
 
-    FILE_NAME = dir(fullfile(ECRF_DATA_DIR,'*CQUANT*.*')); 
-    FILE_NAME = FILE_NAME(~startsWith({FILE_NAME.name}, ".~"));
-    cquant_TABLE = readtable(fullfile(FILE_NAME(1).folder,FILE_NAME(1).name));
-    % leave only subject number, right/left log eye score and comments
-    cquant_TABLE = cquant_TABLE(:,[4 17 18 21 22 23 26 27]);
-    
-    unique_subjects = unique(cquant_TABLE.SubjectNumber);
-    new_cquant_TABLE  = cell2table(cell(0,3), 'VariableNames', CQUANT_VARIABLE_NAMES);
-    for i=1:length(unique_subjects)
-        % for each subject
-        idx=ismember(cquant_TABLE.SubjectNumber,unique_subjects(i));
-        sdata = cquant_TABLE(idx,:);
-        
-        % remove subjects that has comments on them (there is always something wrong with them ) 
-        has_comments = find(~ismember(sdata{:,2},{''}) | ~ismember(sdata{:,3},{''}));
-        if ~isempty(has_comments) % subject that has comments on him 
-            %disp('comments founds');
-        else % subjects that has not comments
-            sdata(end,7);
-            sdata(end,8);
-            cl = {unique_subjects(i),...
-                  str2double(strrep(sdata{end,7},',','.')),... %log data
-                  str2double(strrep(sdata{end,8},',','.'))}; %log dat
-            new_cquant_TABLE  = [new_cquant_TABLE; cl];  
+    FILE_NAME = fullfile(ECRF_DATA_DIR,'CQUANT.xlsx'); 
+    if check_file(FILE_NAME)
+        cquant_TABLE = readtable(FILE_NAME);
+        % leave only subject number, right/left log eye score and comments
+        cquant_TABLE = cquant_TABLE(:,[4 17 18 21 22 23 26 27]);
+
+        unique_subjects = unique(cquant_TABLE.SubjectNumber);
+        new_cquant_TABLE  = cell2table(cell(0,3), 'VariableNames', CQUANT_VARIABLE_NAMES);
+        for i=1:length(unique_subjects)
+            % for each subject
+            idx=ismember(cquant_TABLE.SubjectNumber,unique_subjects(i));
+            sdata = cquant_TABLE(idx,:);
+
+            % remove subjects that has comments on them (there is always something wrong with them ) 
+            has_comments = find(~ismember(sdata{:,2},{''}) | ~ismember(sdata{:,3},{''}));
+            if ~isempty(has_comments) % subject that has comments on him 
+                %disp('comments founds');
+            else % subjects that has not comments
+                sdata(end,7);
+                sdata(end,8);
+                cl = {unique_subjects(i),...
+                      str2double(strrep(sdata{end,7},',','.')),... %log data
+                      str2double(strrep(sdata{end,8},',','.'))}; %log dat
+                new_cquant_TABLE  = [new_cquant_TABLE; cl];  
+            end
+
         end
-       
+    else
+        disp(['File not found - we skip: ',FILE_NAME])
     end
 catch err
    rethrow(err) 

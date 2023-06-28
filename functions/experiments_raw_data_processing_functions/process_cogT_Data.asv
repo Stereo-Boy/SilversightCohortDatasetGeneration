@@ -12,8 +12,10 @@ function process_cogT_Data()
     config(); % calling the conf script to get tables columns (VariableNames) 
     % read all mat files in the (sub)folder
     %d = uigetdir(pwd,'Select a folder');
-    cogT = list_files(fullfile(LOCAL_DATA_DIR, 'cogT_DATA'),'**/*.mat',1);
-    if numel(cogT)>0    
+    fil
+    cogT = list_files(fullfile(LOCAL_DATA_DIR, 'cogT_DATA','**/*.mat'));
+    cogT_file_found = size(cogT);
+    if cogT_file_found(1)    
 
         % create empty cell to store the results
         id = cell(length(cogT),1); 
@@ -22,34 +24,35 @@ function process_cogT_Data()
         mms = cell(length(cogT),1);
         persp = cell(length(cogT),1);
         stai = cell(length(cogT),1);
+        keyboard
         % extract data from the structures
         for n = 1:length(cogT)
-            load(cogT{n});
+            load(fullfile(cogT(n).folder,cogT(n).name));
             id{n} = cogtSt.infoStruct.ID;
             if isfield(cogtSt,'fesStruct')==1
                 fes{n} = cogtSt.fesStruct.Result;
             else
-                fes{n} = [];
+                fes{n} = {[]};
             end
             if isfield(cogtSt,'ghqStruct')==1
                 ghq{n} = cogtSt.ghqStruct.Result;
             else
-                ghq{n} = [];
+                ghq{n} = {[]};
             end
             if isfield(cogtSt,'mmsStruct')==1
                 mms{n} = cogtSt.mmsStruct.Result;
             else
-                mms{n} = [];
+                mms{n} = {[]};
             end
             if isfield(cogtSt,'perspStruct')==1
                 persp{n} = cogtSt.perspStruct.Result;
             else
-                persp{n} = [];
+                persp{n} = {[]};
             end
             if isfield(cogtSt,'staiStruct')==1
                 stai{n} = cogtSt.staiStruct.Result;
             else
-                stai{n} = [];
+                stai{n} = {[]};
             end
         end
 
@@ -60,8 +63,6 @@ function process_cogT_Data()
         % save the table to excel file as well
         %writetable(cogT_table,[PROCESSED_DATA_DIR 'cogT_Data_' strrep(datestr(datetime('today'),'dd-mm-yyyy'), '-','')],'FileType','spreadsheet');
         writetable(cogT_table,fullfile(PROCESSED_DATA_DIR,'cogT_Data.xls'),'FileType','spreadsheet');
-    else
-        disp('No file found in local folder - we skip.')
     end
     disp('  End data processing for cogT_Data ');
 end

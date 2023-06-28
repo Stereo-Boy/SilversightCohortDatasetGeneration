@@ -17,15 +17,18 @@ list = {files.name};
 
 %remove all non-dir from the list
 dirs = [files.isdir];
+listFolder = list(dirs);
 
-listFolders = list(dirs);
+%remove all folders starting with an . or an ~
+listFolder = listFolder(~cellfun(@(x) startsWith(x,'.'),listFolder));
+listFolders = listFolder(~cellfun(@(x) startsWith(x,'~'),listFolder));
 
-%remove all folders starting with an .
-for i=numel(listFolders):-1:1
-    folder=listFolders{i};
-   if strcmp(folder(1),'.')
-       listFolders(i)=[];
-   end
-end
+% %remove all folders starting with an .
+% for i=numel(listFolders):-1:1
+%     folder=listFolders{i};
+%    if strcmp(folder(1),'.')
+%        listFolders(i)=[];
+%    end
+% end
 
 if absolutePath; listFolders=fullfile(source,listFolders); end

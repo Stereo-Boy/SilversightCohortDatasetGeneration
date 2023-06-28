@@ -17,6 +17,7 @@ if EXECUTE_BAT; process_BAT(); end % BAT
 if EXECUTE_UFOV; process_UFOV(); end 
 if EXECUTE_OKF_FIXATION; process_OK_FIX();  end  % OK_FIX
 if EXECUTE_ETDRS; process_ETDRS();end  % ETDRS
+if EXECUTE_STEREO; process_STEREO(); end %stereo data
 if EXECUTE_DM; process_DM(); end % DM Demography info(Gender,...)
 
 %%% 2-Functional hearing assessment
@@ -25,7 +26,6 @@ if AUDIO_GUI; process_Audiogram(PROCESSED_DATA_DIR,AUDIO_VARIABLE_NAMES);  end %
 %%% 3-Neuropsychological examination
 if EXECUTE_COG_T; process_cogT_Data(); end % A. MMS, GHQ, FES, STAI, Persp
 if EXECUTE_WTS; process_WTS(WTS_DATA_ONE_FILE_FOR_ALL); end % B. WTS (D3S1CAReponses, TMTS2DSCOREDif, TMTS2QSCOREQuo, FGTS11LSsommed, FGTS11RKVArest, FGTS11RLVArest, CORSIS1UBSEmpa, CORSIS5UBSEmpa, INHIBS3DWIndic).
-if EXECUTE_STEREO; process_STEREO(); end %stereo data
 
 remove_unecessary_var_from_workspace;
 disp('Data processing for each experiment finished');

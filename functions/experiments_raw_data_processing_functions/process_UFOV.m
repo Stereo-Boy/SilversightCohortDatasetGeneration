@@ -9,10 +9,11 @@ try
     config(); % calling the conf script to get tables columns (VariableNames) 
     format long
     if UFOV_ECRF_DATA == 1 || UFOV_ECRF_DATA== 3
-        FILE_NAME = dir(fullfile(ECRF_DATA_DIR,'*UFOV*.*')); % look for files that have UFOV in thier names
-        ufov_file_found = size(FILE_NAME);
-        if ufov_file_found(1)
-            ufov_TABLE = readtable(fullfile(FILE_NAME(1).folder, FILE_NAME(1).name));
+        file = fullfile(ECRF_DATA_DIR,'UFOV.xlsx');
+        if check_file(file) % look for files that have UFOV in thier names
+            warning off
+            ufov_TABLE = readtable(file);
+            warning on
             % leave only SubjectNumber (clomn 3), Divided_Attention (column 22), Processing_Speed (column 32), Selective_Attention (column 35)  
             ufov_TABLE=ufov_TABLE(:,[4 22 32 35]);
             % Select columns names 
@@ -28,13 +29,16 @@ try
             ufov_TABLE.(char(UFOV_VARIABLE_NAMES(4)))=str2double(ufov_TABLE{:,4})/1000;
             %writetable(ufov_TABLE, [PROCESSED_DATA_DIR 'UFOV_processed' strrep(datestr(datetime('today'),'dd-mm-yyyy'), '-','') '.xls'],'FileType','spreadsheet');
             writetable(ufov_TABLE, fullfile(PROCESSED_DATA_DIR, 'UFOV_ecrf_processed.xls'),'FileType','spreadsheet');
-            
+        else
+           disp(['file not found - we skip: ',file])
         end
     end    
     if  UFOV_ECRF_DATA == 2 || UFOV_ECRF_DATA== 3 % using Shing Shuang UFOV table
         % !!! implementation not finished, so i stopped until i ll find ansewrs 
         FILE_NAME = dir(fullfile(LOCAL_DATA_DIR,'*UFOV_data*.*')); % look for files that have NEI-VQF in thier names
+        warning off
         ufov_TABLE = readtable(fullfile(FILE_NAME(1).folder,FILE_NAME(1).name));
+        warning on
         % keep only 2 colulmns : SubjeciId (column 1), test_result (column 6 corresponts to PS,DA,SA scores) 
         ufov_TABLE=ufov_TABLE(:,[1 6]);
         % remove empty lines 

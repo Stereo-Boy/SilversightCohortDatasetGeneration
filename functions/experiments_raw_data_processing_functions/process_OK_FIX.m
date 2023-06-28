@@ -14,44 +14,50 @@ disp('  Begin data processing for OK_FIX ');
     %% 1. ISO95BDW0-125
     % read structured mat file
     %[selectedfile,path] = uigetfile('*.mat','Select ISO mat file');
-    FILE_NAME = dir(fullfile(LOCAL_DATA_DIR,'Eye_Tracking_Fixation','*ISO95BDW0-125*.*'));
+    
+    file = fullfile(LOCAL_DATA_DIR,'Eye_Tracking_Fixation','ISO95BDW0-125.mat');
+    if check_file(file)
+        FileData = load(file);
 
-    file = fullfile(FILE_NAME(1).folder,FILE_NAME.name);
-    FileData = load(file);
+        % calculate mean for each condition
+        M = nanmean(FileData.rawDataISO(:,2:end,:),2); %w/o NaN and age column
+        ISO = reshape(M,size(M,1),5);
 
-    % calculate mean for each condition
-    M = nanmean(FileData.rawDataISO(:,2:end,:),2); %w/o NaN and age column
-    ISO = reshape(M,size(M,1),5);
+        % Convert matrix to a table
+        T_1 = array2table(ISO);
+        % add ID to the table
+        T_1.ID = cellstr(FileData.namearray);
+        T_1 = movevars(T_1,'ID','Before',1);
+        T_1.Properties.VariableNames = OKF_VARIABLE_NAMES_SHEET1;
+        %save('OKF_FIX','T_1')
+    else
+        disp(['File not found - we skip: ',file]) 
+    end
+    
+        %% 2. allDataMS
+        % read structured mat file
+        %[selectedfile,path] = uigetfile('*.mat','Select microsaccade mat file');
+        file = fullfile(LOCAL_DATA_DIR, 'Eye_Tracking_Fixation','allDataMS.mat');
+     if check_file(file)
+        FileData = load(file);
 
-    % Convert matrix to a table
-    T_1 = array2table(ISO);
-    % add ID to the table
-    T_1.ID = cellstr(FileData.namearray);
-    T_1 = movevars(T_1,'ID','Before',1);
-    T_1.Properties.VariableNames = OKF_VARIABLE_NAMES_SHEET1;
-    %save('OKF_FIX','T_1')
+        % calculate "freq" mean for each condition
+        M = nanmean(FileData.freq(:,2:end,:),2); %w/o NaN and age column
+        M_freq = reshape(M,size(M,1),5);
 
-    %% 2. allDataMS
-    % read structured mat file
-    %[selectedfile,path] = uigetfile('*.mat','Select microsaccade mat file');
-    FILE_NAME = dir(fullfile(LOCAL_DATA_DIR, 'Eye_Tracking_Fixation','*allDataMS*.*'));
-    file = fullfile(FILE_NAME.folder,FILE_NAME.name);
-    FileData = load(file);
+        % reshape amp and pvelo
+        M_amp = reshape(FileData.amp(:,2,:),size(M,1),5);
+        M_pvelo = reshape(FileData.pvelo(:,2,:),size(M,1),5);
 
-    % calculate "freq" mean for each condition
-    M = nanmean(FileData.freq(:,2:end,:),2); %w/o NaN and age column
-    M_freq = reshape(M,size(M,1),5);
-
-    % reshape amp and pvelo
-    M_amp = reshape(FileData.amp(:,2,:),size(M,1),5);
-    M_pvelo = reshape(FileData.pvelo(:,2,:),size(M,1),5);
-
-    % put all data to a table
-    T_2 = [array2table(M_freq) array2table(M_amp) array2table(M_pvelo)];
-    T_2.ID = cellstr(FileData.namearrayMS);
-    T_2 = movevars(T_2,'ID','Before',1);
-    T_2.Properties.VariableNames = OKF_VARIABLE_NAMES_SHEET2;
-    %save('OKF_FIX','T_2','-append')
+        % put all data to a table
+        T_2 = [array2table(M_freq) array2table(M_amp) array2table(M_pvelo)];
+        T_2.ID = cellstr(FileData.namearrayMS);
+        T_2 = movevars(T_2,'ID','Before',1);
+        T_2.Properties.VariableNames = OKF_VARIABLE_NAMES_SHEET2;
+        %save('OKF_FIX','T_2','-append')
+    else
+        disp(['File not found - we skip: ',file]) 
+    end
 
 
     %% 3. ASerror and ASlatency
