@@ -17,7 +17,9 @@ try
 
     FILE_NAME = fullfile(ECRF_DATA_DIR,'CQUANT.xlsx'); 
     if check_file(FILE_NAME)
+        warning off
         cquant_TABLE = readtable(FILE_NAME);
+        warning on
         % leave only subject number, right/left log eye score and comments
         cquant_TABLE = cquant_TABLE(:,[4 17 18 21 22 23 26 27]);
 

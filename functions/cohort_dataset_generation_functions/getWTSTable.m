@@ -4,7 +4,9 @@ try
     config(); % calling the config script for flags, data paths and columns' names
     if WTS_DATA_ONE_FILE_FOR_ALL == 1 || WTS_DATA_ONE_FILE_FOR_ALL == 3
         FILE_NAME = dir(fullfile(PROCESSED_DATA_DIR,'*WTS_Local_Data_One_File*.*'));
+        warning off
          wts_one_file_TABLE_all = readtable(fullfile(FILE_NAME(1).folder, FILE_NAME(1).name),'ReadVariableNames',true);
+         warning on
          wts_one_file_TABLE = wts_one_file_TABLE_all(:,{'Identifiant','D3S1CAResponses','TMTS2DSCOREDifferenceBA','TMTS2QSCOREBA','FGTS11LSSommeApprentissage','FGTS11RKVARestitutionLibre',...
              'FGTS11RLVARestitutionLibre', 'CORSIS1UBSEmpanDeBlocsImmediat','CORSIS5UBSEmpanDeBlocsImmediat','INHIBS3DWIndiceDeSensibilite'});
 %        % subjectID_TABLE = readtable(fullfile(FILE_NAME(1).folder, FILE_NAME(1).name),'Range', 'A:A');
@@ -35,7 +37,9 @@ try
     if WTS_DATA_ONE_FILE_FOR_ALL == 2 || WTS_DATA_ONE_FILE_FOR_ALL == 3
         FILE_NAME = dir(fullfile(PROCESSED_DATA_DIR,'*WTS_Local_Data_Multiple_Files*.*'));
         if ~isempty(FILE_NAME)
+            warning off
             wts_multi_files_TABLE_all = readtable(fullfile(FILE_NAME(1).folder, FILE_NAME(1).name),'ReadVariableNames',true);
+            warning on
             wts_multi_files_TABLE = wts_multi_files_TABLE_all(:,{'Identifiant','D3S1CAResponses','TMTS2DSCOREDifferenceBA','TMTS2QSCOREBA','FGTS11LSSommeApprentissage','FGTS11RKVARestitutionLibre',...
                  'FGTS11RLVARestitutionLibre', 'CORSIS1UBSEmpanDeBlocsImmediat','CORSIS5UBSEmpanDeBlocsImmediat','INHIBS3DWIndiceDeSensibilite'});
     %         subjectID_TABLE = readtable(fullfile(FILE_NAME(1).folder, FILE_NAME(1).name),'Range', 'A:A');

@@ -4,8 +4,11 @@ try
     disp('  Begin compute age');     
     config(); % calling the config script for flags, data paths and columns' names
     % using the RFOK data because it is the experiment with the highest number of data
-    FILE_NAME = dir(fullfile(ECRF_DATA_DIR,'RFOK.xlsx')); 
-    rfok_TABLE = readtable(fullfile(FILE_NAME(1).folder,FILE_NAME(1).name));  
+    FILE_NAME = fullfile(ECRF_DATA_DIR,'RFOK.xlsx'); 
+    check_file(FILE_NAME,1); %this file is required, we throw an erro if not here
+    warning off
+    rfok_TABLE = readtable(FILE_NAME);  
+    warning on
     rfok_TABLE=rfok_TABLE(:,[4 42]);
     rfok_TABLE.Properties.VariableNames = RFOK_VARIABLE_NAMES;
     rfok_TABLE=removeDuplicates(rfok_TABLE);

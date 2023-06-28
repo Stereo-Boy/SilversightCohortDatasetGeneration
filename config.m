@@ -16,11 +16,13 @@ EXECUTE_UFOV=false; % UFOV: needs an eCRF file UFOV.xlsx
 EXECUTE_OKF_FIXATION=false; % eye movements data during fixation - needs the following local files 'ISO95BDW0-125.mat', 'allDataMS.mat', 'ASerror.mat', 'ASlatency.mat' in a folder 'Eye_Tracking_Fixation'
 EXECUTE_ETDRS=false; % ETDRS / AV ETDRS ASC: far visual acuities - needs the eCRF file ETDRS.xls - negative values means better acuity. 2m data is disabled cause there are few subjects 
 EXECUTE_STEREO=false; % STEREO: stereo data (eRDS, upper disparity limit, Asteroid, butterfly stereoblindness test) - needs a local file stereo_master_file_XXXXXXXXX.xlsx and a correspondance table basecorrespondance.xlsx with animal/vegetal codings
-EXECUTE_DM = true; % This should always be true - Demographic data - sex at birth and date of birth (european format) - needs eCRF file DM.xlsx 
-EXECUTE_AUDIOGRAM=true;
-EXECUTE_COG_T=true;
-EXECUTE_WTS=true; % Wienna Test System
+EXECUTE_AUDIOGRAM=false;
+EXECUTE_COG_T=false; % cognitive task (FES, GHQ, MMS, PERSP, STAI) results - needs local mat files in a cogT_DATA folder
+EXECUTE_WTS=true; % Wienna Test System - needs data lists in WTS_DATA folder in local folder and possibly additionaly individual WTS files in individual folders at the same location
 EXECUTE_CQUANT = true; % Eye dispersion coefficient (Cataract Quantifier) - needs the eCRF file CQUANT.xlsx - lines with comments removed - log10 of straylight dispersion
+
+% should always be true
+EXECUTE_DM = true; % This should always be true - Demographic data - sex at birth and date of birth (european format) - needs eCRF file DM.xlsx but also needs the eCRF file RFOK.xlsx
 
 %% other flags 
 % Setting Flags 
@@ -50,7 +52,6 @@ BINO_VARIABLE_NAMES = {'Identifiant' 'bino_vf_rt' 'bino_vf_ssrt'};
 CSF_BINO_VARIABLE_NAMES = {'Identifiant' 'csf_bino_05cpd' 'csf_bino_1cpd' 'csf_bino_2cpd' 'csf_bino_4cpd' 'csf_bino_8cpd' 'csf_bino_16cpd' 'csf_bino_date'}; %likely that 05cpd means 0.5 cpd
 CSF_MONO_VARIABLE_NAMES = {'Identifiant' 'csf_mono_05cpd' 'csf_mono_1cpd' 'csf_mono_2cpd' 'csf_mono_4cpd' 'csf_mono_8cpd' 'csf_mono_16cpd' 'csf_mono_date'}; %likely that 05cpd means 0.5 cpd
 BAT_VARIABLE_NAMES = {'Identifiant' 'bat_100' 'bat_10' 'bat_5','bat_date'}; % BAT columns in output file
-BAT_OG_VARIABLE_NAMES = {'Identifiant' 'bat_wg100' 'bat_g100' 'bat_wg10' 'bat_g10' 'bat_wg5' 'bat_g5' 'bat_date'}; %necessary to process local data (legacy code)
 UFOV_VARIABLE_NAMES = {'Identifiant' 'ufov_da' 'ufov_ps' 'ufov_sa'}; 
 CQUANT_VARIABLE_NAMES = {'Identifiant' 'cquant_od' 'cquant_og'};%log 
 OKF_VARIABLE_NAMES_SHEET1 = {'Identifiant' 'okf_iso1' 'okf_iso2'  'okf_iso3'  'okf_iso4'  'okf_iso5'  };
@@ -74,6 +75,8 @@ WTS_VARIABLE_NAMES = {'Identifiant' 'age' 'niveauEducation'  'sex' ...
                         'FGTS11RKVARestitutionLibre' 'FGTS11FKVAErreur' 'FGTS11RLVARestitutionLibre' 'FGTS11FLVAErreur' 'FGTS11RWCorrecteReconnaissance' 'FGTS11FWErreurReconnaissance' ...
                         'CORSIS1UBSEmpanDeBlocsImmediat' 'CORSIS5UBSEmpanDeBlocsImmediat' ...
                         'INHIBS3DWIndiceDeSensibilite' 'INHIBS3FANNombreErreursDeCommission' 'INHIBS3VPNombreErreursOmission' 'INHIBS3MRZTempsDeReaactionMoyen' 'INHIBS3SDRZTypeDeTempsDeReaction'};                   
-RFOK_VARIABLE_NAMES={'Identifiant' 'RFOK_DateDeVisite'};                    
-   
+RFOK_VARIABLE_NAMES={'Identifiant' 'rfok_date'};                    
 STEREO_VARIABLE_NAMES={'Identifiant','stereo_bs', 'stereo_erds','stereo_upper_limit','stereo_asteroid','stereo_date'}; 
+
+%necessary to process local data (legacy code / do not modify or remove)
+BAT_OG_VARIABLE_NAMES = {'Identifiant' 'bat_wg100' 'bat_g100' 'bat_wg10' 'bat_g10' 'bat_wg5' 'bat_g5' 'bat_date'}; 

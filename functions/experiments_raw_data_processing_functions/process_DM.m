@@ -8,7 +8,7 @@ function process_DM()
     config(); % calling the conf script to get tables columns (VariableNames) 
 	   
     file = fullfile(ECRF_DATA_DIR ,"DM.xlsx");
-    if check_file(file)
+    check_file(file,1); % required file, throw an error otherwise
     % execute only if there is an DM raw data file
         warning off
         dm_data = readtable(file);
@@ -28,10 +28,7 @@ function process_DM()
             dm_new_table  = [dm_new_table; cl];         
         end
         %writetable(dm_new_table, [PROCESSED_DATA_DIR 'DM_' strrep(datestr(datetime('today'),'dd-mm-yyyy'), '-','') '.xlsx']);
-        writetable(dm_new_table, fullfile(PROCESSED_DATA_DIR, 'DM.xlsx'));
-    else
-       disp(['File not found - we skip: ',file]) 
-    end
+        writetable(dm_new_table, fullfile(PROCESSED_DATA_DIR, 'DM_Processed.xlsx'));
     disp('  Data processing for DM - demographic information');
 end
 

@@ -37,14 +37,14 @@ Here is a list (for more description, see metadata https://docs.google.com/sprea
 *ETDRS / AV ETDRS ASC: far visual acuities - needs the eCRF file ETDRS.xls 
 *CSF: Constrast Sensitivity Function (actually contrast threshold between 0 and 1, lower scores are better, at different spatial frequencies) - needs local data (xml files in a folder called CSF_DATA in local folder, 2 files for each SS, one MONO, one BINO). 
 *CQUANT - Eye dispersion coefficient (Cataract Quantifier) - needs the eCRF file CQUANT.xlsx - log10 of straylight dispersion
-*DM - Demographic data - sex at birth and date of birth (european format)
+*DM - Demographic data - sex at birth and date of birth (european format) - needs eCRF file DM.xlsx but also needs the eCRF file RFOK.xlsx
 *BAT - BAT measures the loss of acuity due to glare illumation (in logmar) - needs the eCRF file ETDRS.xls and can also have a local file with BAT in its name.
 *STEREO - stereo data (eRDS, upper disparity limit, Asteroid, butterfly stereoblindness test) - needs a local file stereo_master_file_XXXXXXXXX.xlsx and a correspondance table basecorrespondance.xlsx with animal/vegetal codings
-*UFOV
-*OKF_FIXATION
+*UFOV - needs an eCRF file UFOV.xlsx
+*OKF_FIXATION - eye movements data during fixation - needs the following local files 'ISO95BDW0-125.mat', 'allDataMS.mat', 'ASerror.mat', 'ASlatency.mat' in a folder 'Eye_Tracking_Fixation'
 *AUDIOGRAM
-*COG_T
-*WTS - Wienna Test System
+*COG_T - cognitive task results (FES, GHQ, MMS, PERSP, STAI) - needs local mat files in a cogT_DATA folder
+*WTS - Wienna Test System - needs data lists in WTS_DATA folder in local folder and possibly additionaly individual WTS files in individual folders at the same location
 
 ## Important
 * in the config.m file, define the flags that you want to include in the dataset to be generated
