@@ -30,7 +30,7 @@ end
 end
 
 function table_to_export = get_data1(PR_FILE_PATH,PR_VARIABLE_NAMES)
-    if check_file(PR_FILE_PATH)
+    if check_file(PR_FILE_PATH,0)
         warning off
         data = readtable(PR_FILE_PATH);
         warning on

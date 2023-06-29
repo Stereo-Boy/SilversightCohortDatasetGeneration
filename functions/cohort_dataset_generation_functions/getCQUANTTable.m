@@ -16,7 +16,7 @@ try
 %     disp('  Importing CQUANT processed data finished');
 
     FILE_NAME = fullfile(ECRF_DATA_DIR,'CQUANT.xlsx'); 
-    if check_file(FILE_NAME)
+    if check_file(FILE_NAME,0)
         warning off
         cquant_TABLE = readtable(FILE_NAME);
         warning on

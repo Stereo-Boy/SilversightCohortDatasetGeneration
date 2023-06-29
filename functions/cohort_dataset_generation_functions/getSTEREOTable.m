@@ -1,11 +1,17 @@
 function st_table = getSTEREOTable()
+try
     % this function read the stereo table and remove subject duplicates
     disp('  Begin importing STEREO processed data');    
     config(); % calling the conf script for flags, data paths and columns' names
-    check_files(PROCESSED_DATA_DIR,'STEREO_Processed*.*',1,1,'verboseOFF'); % look for files
-    files = list_files(PROCESSED_DATA_DIR,'STEREO_Processed*.*',1);
-    st_TABLE = readtable(files{1}); 
-    st_table = removeDuplicates(st_TABLE);
+    file = fullfile(PROCESSED_DATA_DIR,'STEREO_Processed.xlsx');
+    if check_file(file,0) % look for files
+        st_TABLE = readtable(file); 
+        st_table = sort_date_remove_duplicates(st_TABLE,'stereo_date');
+    else
+        disp('no file found in processed_data folder - we skip.')
+    end
     disp('  Importing STEREO processed data finished');
+catch err
+    keyboard
 end
 

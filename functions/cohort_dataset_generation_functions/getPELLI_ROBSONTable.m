@@ -3,14 +3,25 @@ function [pr_TABLE] = getPELLI_ROBSONTable()
     config(); % calling the conf script for flags, data paths and columns' names
     % if PR was processed from raw data then
     if PR_ECRF_DATA==1 || PR_ECRF_DATA==3
-        check_files(PROCESSED_DATA_DIR,'*PR_eCRF_Processed*.*',1,1,'verboseOFF'); % look for files that have PR and Processed in their names
-        files = list_files(PROCESSED_DATA_DIR,'*PR_eCRF_Processed*.*',1);
-        pr_TABLE_ECRF = readtable(files{1}); % no need to remove duplicates since it had to be done in the processing 
+        if check_file(fullfile(PROCESSED_DATA_DIR,'PR_eCRF_Processed.xlsx'),0) % look for files that have PR and Processed in their names
+            files = list_files(PROCESSED_DATA_DIR,'*PR_eCRF_Processed*.*',1);
+            pr_TABLE_ECRF = readtable(files{1}); % no need to remove duplicates since it had to be done in the processing 
+        else
+            disp('No PR_ecRF file in processed_data folder - we skip that part.') 
+            pr_TABLE_ECRF = [];
+        end
+        pr_TABLE = pr_TABLE_ECRF;
     end    
+    
     if PR_ECRF_DATA==2 || PR_ECRF_DATA==3 % if PR was reprocessed from Processed data
-        check_files(PROCESSED_DATA_DIR,'*PR_Local_Processed*.*',1,1,'verboseOFF'); % look for files that have PR and Processed in their names
-        files = list_files(PROCESSED_DATA_DIR,'*PR_Local_Processed*.*',1);
-        pr_TABLE_LOCAL= readtable(files{1}); % no need to remove duplicates since it had to be done in the processing 
+        if check_file(fullfile(PROCESSED_DATA_DIR,'PR_Local_Processed.xlsx'),0) % look for files that have PR and Processed in their names
+            files = list_files(PROCESSED_DATA_DIR,'*PR_Local_Processed*.*',1);
+            pr_TABLE_LOCAL= readtable(files{1}); % no need to remove duplicates since it had to be done in the processing 
+        else
+            disp('No PR local file in processed_data folder - we skip that part.') 
+            pr_TABLE_LOCAL = [];
+        end
+        pr_TABLE = pr_TABLE_LOCAL;
     end
     if PR_ECRF_DATA==3
         % concatenate local and ecrf data
@@ -29,12 +40,11 @@ function [pr_TABLE] = getPELLI_ROBSONTable()
         % merge everything back together
         data_merged1 = outerjoin(pr_data_od2,pr_data_og2,'Keys','Identifiant','MergeKeys',true); 
         pr_TABLE = outerjoin(data_merged1,pr_data_bino,'Keys','Identifiant','MergeKeys',true);        
-    elseif PR_ECRF_DATA==2
-        pr_TABLE = pr_TABLE_LOCAL;
-    elseif PR_ECRF_DATA==1
-        pr_TABLE = pr_TABLE_ECRF;
     end
     %pr_TABLE = renamevars(pr_TABLE,{'Identifiant', 'PR_log_OD','date_OD','PR_log_OG','date_OG','PR_log_Binoculaire','date_Binoculaire'},PR_VARIABLE_NAMES);
+    if PR_ECRF_DATA~=3
+        pr_TABLE = removeDuplicates(pr_TABLE);
+    end
     disp('  Importing PR processed data finished');
 end
 

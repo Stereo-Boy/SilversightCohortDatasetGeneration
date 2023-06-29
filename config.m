@@ -6,18 +6,18 @@
 %warning off;
 
 %% Flags (true means the experiment data will be processed and added to the Cohort data set)
-EXECUTE_NEI_VQF=false; % NEI-VQF. ?negative 0 to -5 instead of 0-100 where 100 is good? You will need a NEI-VQF-date xslm file in local folder.
-EXECUTE_PELLI_ROBSON=false; % PR - Pelli-Robson log contrast sensivity - needs an eCRF file PR.xlsx - higher score is better. 2 is normal, less than 2 is poor. less than 1.5 is impaired. less than 1 is disablity
+EXECUTE_NEI_VQF=true; % NEI-VQF. ?negative 0 to -5 instead of 0-100 where 100 is good? You will need a NEI-VQF-date xslm file in local folder.
+EXECUTE_PELLI_ROBSON=true; % PR - Pelli-Robson log contrast sensivity - needs an eCRF file PR.xlsx - higher score is better. 2 is normal, less than 2 is poor. less than 1.5 is impaired. less than 1 is disablity
 EXECUTE_HUE15=false; % both eCRF and local. using confusion index - 1 is good, more than one means less good. values range 1-3 - needs an eCRF file VC.xlsx?
-EXECUTE_BINO=false; % binocular cinetic visual field size - needs a local file BINO_data_XXXX.xlsx with XXXX being a date
-EXECUTE_CSF=false; % Constrast Sensitivity Function (actually contrast threshold between 0 and 1, lower scores are better, at different spatial frequencies) - needs local data (xml files in a folder called CSF_DATA in local folder, 2 files for each SS, one MONO, one BINO). 
-EXECUTE_BAT=false;  % BAT measures the loss of acuity due to glare illumation (in logmar) - needs the eCRF file ETDRS.xls and can also have a local file with BAT in its name.
-EXECUTE_UFOV=false; % UFOV: needs an eCRF file UFOV.xlsx
-EXECUTE_OKF_FIXATION=false; % eye movements data during fixation - needs the following local files 'ISO95BDW0-125.mat', 'allDataMS.mat', 'ASerror.mat', 'ASlatency.mat' in a folder 'Eye_Tracking_Fixation'
-EXECUTE_ETDRS=false; % ETDRS / AV ETDRS ASC: far visual acuities - needs the eCRF file ETDRS.xls - negative values means better acuity. 2m data is disabled cause there are few subjects 
-EXECUTE_STEREO=false; % STEREO: stereo data (eRDS, upper disparity limit, Asteroid, butterfly stereoblindness test) - needs a local file stereo_master_file_XXXXXXXXX.xlsx and a correspondance table basecorrespondance.xlsx with animal/vegetal codings
-EXECUTE_AUDIOGRAM=false;
-EXECUTE_COG_T=false; % cognitive task (FES, GHQ, MMS, PERSP, STAI) results - needs local mat files in a cogT_DATA folder
+EXECUTE_BINO=true; % binocular cinetic visual field size - needs a local file BINO_data_XXXX.xlsx with XXXX being a date
+EXECUTE_CSF=true; % Constrast Sensitivity Function (actually contrast threshold between 0 and 1, lower scores are better, at different spatial frequencies) - needs local data (xml files in a folder called CSF_DATA in local folder, 2 files for each SS, one MONO, one BINO). 
+EXECUTE_BAT=true;  % BAT measures the loss of acuity due to glare illumation (in logmar) - needs the eCRF file ETDRS.xls and can also have a local file with BAT in its name.
+EXECUTE_UFOV=true; % UFOV: needs an eCRF file UFOV.xlsx
+EXECUTE_OKF_FIXATION=true; % eye movements data during fixation - needs the following local files 'ISO95BDW0-125.mat', 'allDataMS.mat', 'ASerror.mat', 'ASlatency.mat' in a folder 'Eye_Tracking_Fixation'
+EXECUTE_ETDRS=true; % ETDRS / AV ETDRS ASC: far visual acuities - needs the eCRF file ETDRS.xls - negative values means better acuity. 2m data is disabled cause there are few subjects 
+EXECUTE_STEREO=true; % STEREO: stereo data (eRDS, upper disparity limit, Asteroid, butterfly stereoblindness test) - needs a local file stereo_master_file_XXXXXXXXX.xlsx and a correspondance table basecorrespondance.xlsx with animal/vegetal codings
+EXECUTE_AUDIOGRAM=true;
+EXECUTE_COG_T=true; % cognitive task (FES, GHQ, MMS, PERSP, STAI) results - needs local mat files in a cogT_DATA folder
 EXECUTE_WTS=true; % Wienna Test System - needs data lists in WTS_DATA folder in local folder and possibly additionaly individual WTS files in individual folders at the same location
 EXECUTE_CQUANT = true; % Eye dispersion coefficient (Cataract Quantifier) - needs the eCRF file CQUANT.xlsx - lines with comments removed - log10 of straylight dispersion
 

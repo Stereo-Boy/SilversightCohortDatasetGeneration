@@ -16,7 +16,7 @@ try
        disp('No file found - we skip STEREO.') 
     else
     % execute only if there at least one stereo data file
-        if check_file(id_path)
+        if check_file(id_path,0)
             warning off
             data = readtable(stereo_path{1});
             id_table = readtable(id_path);
@@ -32,7 +32,7 @@ try
             recoded(isnat(recoded.date),:)=[];          
             recoded(cellfun(@isempty,recoded.id),:)=[];
             %change date format to string
-            recoded.date = datestr(recoded.date,'dd/MM/yyyy');
+            recoded.date = datestr(recoded.date,'dd/mm/yyyy');
             %rename using config()
             renamed = table(recoded.id,recoded.BS,recoded.erds,recoded.upper,recoded.ast,recoded.date,'VariableNames',STEREO_VARIABLE_NAMES);  
             saveFile = fullfile(PROCESSED_DATA_DIR, 'STEREO_Processed.xlsx');

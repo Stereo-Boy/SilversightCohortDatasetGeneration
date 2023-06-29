@@ -8,7 +8,7 @@ try
     etdrs_path = fullfile(ECRF_DATA_DIR,'ETDRS.xlsx');
     
     % execute only if there is an ETDRS raw data file
-    if check_file(etdrs_path)
+    if check_file(etdrs_path,0)
         warning off
         etdrs_data = readtable(etdrs_path);
         warning on

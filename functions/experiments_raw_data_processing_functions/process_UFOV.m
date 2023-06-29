@@ -10,7 +10,7 @@ try
     format long
     if UFOV_ECRF_DATA == 1 || UFOV_ECRF_DATA== 3
         file = fullfile(ECRF_DATA_DIR,'UFOV.xlsx');
-        if check_file(file) % look for files that have UFOV in thier names
+        if check_file(file,0) % look for files that have UFOV in thier names
             warning off
             ufov_TABLE = readtable(file);
             warning on

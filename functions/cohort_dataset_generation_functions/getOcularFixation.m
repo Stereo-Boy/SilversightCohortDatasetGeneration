@@ -11,10 +11,12 @@ disp('  Begin importing Ocular Fixation processed data');
     config(); % calling the conf script for flags, data paths and columns' names
     FILE_NAME = dir(fullfile(PROCESSED_DATA_DIR,'*OK_FIX*.*')); % look for files that have OK_FIX in their names
     % reading all sheets of the Ocular fixation table
+    warning off
     T_1=readtable(fullfile(FILE_NAME(1).folder, FILE_NAME(1).name), 'Sheet', 1);
     T_2=readtable(fullfile(FILE_NAME(1).folder, FILE_NAME(1).name), 'Sheet', 2);
     T_3=readtable(fullfile(FILE_NAME(1).folder, FILE_NAME(1).name), 'Sheet', 3);
     T_4=readtable(fullfile(FILE_NAME(1).folder, FILE_NAME(1).name), 'Sheet', 4);
+    warning on
     % joining tables from the 4 sheets using the subject ID
     okf_TABLE= outerjoin(T_1,T_2,'Keys','Identifiant','MergeKeys',true);
     okf_TABLE= outerjoin(okf_TABLE,T_3,'Keys','Identifiant','MergeKeys',true);
@@ -26,8 +28,10 @@ disp('  Begin importing Ocular Fixation processed data');
     % remove duplicates 
     okf_TABLE=removeDuplicates(okf_TABLE);
     % replace 5-character FIX ID with full ID number
-    FILE_NAME = dir(fullfile(LOCAL_DATA_DIR,'*Base_no_internet*.*')); 
+    FILE_NAME = dir(fullfile(LOCAL_DATA_DIR,'*Base_no_internet*.*'));
+    warning off
     dm_SUBJECTS_ID=readtable(fullfile(FILE_NAME(1).folder,FILE_NAME(1).name), 'Sheet', 1, 'Range','A:A');
+    warning on
     dm_SUBJECTS_ID=removeDuplicates(dm_SUBJECTS_ID);
 
     subjectsToKeep=[];

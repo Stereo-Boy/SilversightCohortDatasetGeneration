@@ -16,7 +16,7 @@ disp('  Begin data processing for OK_FIX ');
     %[selectedfile,path] = uigetfile('*.mat','Select ISO mat file');
     
     file = fullfile(LOCAL_DATA_DIR,'Eye_Tracking_Fixation','ISO95BDW0-125.mat');
-    if check_file(file)
+    if check_file(file,0)
         FileData = load(file);
 
         % calculate mean for each condition
@@ -38,7 +38,7 @@ disp('  Begin data processing for OK_FIX ');
         % read structured mat file
         %[selectedfile,path] = uigetfile('*.mat','Select microsaccade mat file');
         file = fullfile(LOCAL_DATA_DIR, 'Eye_Tracking_Fixation','allDataMS.mat');
-     if check_file(file)
+     if check_file(file,0)
         FileData = load(file);
 
         % calculate "freq" mean for each condition

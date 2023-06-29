@@ -8,7 +8,7 @@ try
     if BAT_ECRF_DATA==1 || BAT_ECRF_DATA==3 %process only if flag is on
     bat_path = fullfile(ECRF_DATA_DIR,'ETDRS.xlsx'); % BAT data are actually in the ETDRS eCRF file
     % execute only if there is an ETDRS raw data file
-        if check_file(bat_path)
+        if check_file(bat_path,0)
             warning off
             data = readtable(bat_path);
             warning on

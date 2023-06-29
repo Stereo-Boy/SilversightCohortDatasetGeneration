@@ -24,7 +24,7 @@ function process_DM()
             else
                 s_sex = NaN;
             end
-            cl = {char(table2array(dm_data(i, 1))), s_sex, {datestr(datenum(dm_data{i,3},'dd/MM/yyyy'),' dd/MM/yyyy')}};
+            cl = {char(table2array(dm_data(i, 1))), s_sex, {datestr(datenum(dm_data{i,3},'dd/mm/yyyy'),' dd/mm/yyyy')}};
             dm_new_table  = [dm_new_table; cl];         
         end
         %writetable(dm_new_table, [PROCESSED_DATA_DIR 'DM_' strrep(datestr(datetime('today'),'dd-mm-yyyy'), '-','') '.xlsx']);

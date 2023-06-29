@@ -8,8 +8,10 @@ function [etdrs_4m_TABLE] = getETDRSTable()
    % etdrs_2m_TABLE=removeDuplicates(etdrs_2m_TABLE);
    
     FILE_NAME = fullfile(PROCESSED_DATA_DIR,'ETDRS_4M.xlsx'); % look for files that have NEI-VQF in thier names
-    if check_file(FILE_NAME)
-        etdrs_4m_TABLE = readtable(fullfile(FILE_NAME(1).folder, FILE_NAME(1).name));
+    if check_file(FILE_NAME,0)
+        warning off
+        etdrs_4m_TABLE = readtable(FILE_NAME);
+        warning on
         etdrs_4m_TABLE=removeDuplicates(etdrs_4m_TABLE);
     else
         disp(['File not found - we skip: ',FILE_NAME])

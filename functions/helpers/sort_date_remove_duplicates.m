@@ -4,7 +4,8 @@ function data7 = sort_date_remove_duplicates(data,datefield)
 % Then remove duplicates, keeping the last lines when duplicates in the first column value.
 % Finally, reconvert the output with string data fields.
         % sort the data by ascending dates after converting dates to date format
-        dates = datetime(table2array(data(:,datefield)));
+        try
+        dates = datetime(table2array(data(:,datefield)),'InputFormat','dd/MM/yyyy');
         data(:,datefield) = []; 
         data{:,datefield} = dates;
         data2 = sortrows(data,datefield);
@@ -17,5 +18,8 @@ function data7 = sort_date_remove_duplicates(data,datefield)
         % retransform the date column as string again
         data7 = data6;
         data7(:,datefield)=[];
-        data7(:,datefield)=cellstr(datestr(table2array(data6(:,datefield)),'dd/MM/yyyy'));
+        data7(:,datefield)=cellstr(datestr(table2array(data6(:,datefield)),'dd/mm/yyyy'));
+        catch err
+            keyboard
+        end
 end

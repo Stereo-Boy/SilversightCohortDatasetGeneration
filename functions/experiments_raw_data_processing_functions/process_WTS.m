@@ -5,68 +5,72 @@ function process_WTS(WTS_DATA_ONE_FILE_FOR_ALL)
 
     disp('  Begin data processing for WTS ');
     config(); % calling the conf script to get tables columns (VariableNames) 
-    % if there is only one file that has all subjects data
+    % if there is only one file that has more than one subject data
     if WTS_DATA_ONE_FILE_FOR_ALL == 1 || WTS_DATA_ONE_FILE_FOR_ALL == 3
-        if numel(list_folders(LOCAL_DATA_DIR,'*WTS*.*',1))==1 
-            FILE_NAME = dir(fullfile(LOCAL_DATA_DIR,'*WTS*.*'));
+        if numel(list_folders(LOCAL_DATA_DIR,'*WTS*.*',1))>0 
+            FILE_NAMES = list_files(fullfile(LOCAL_DATA_DIR,'WTS_DATA'),'*WTS*.*',1);
             % test if there is a WTS file in the raw data directory, otherwise no need to process the data 
-            wts_file_found = size(FILE_NAME);
-            if wts_file_found(1)
-
-                file = fullfile(FILE_NAME(1).folder,FILE_NAME(1).name);
-                dataWTS = importdata(file,';',1); % import this data will result into double 2D array and text array for text fields
-
-                count = 0;
+            if numel(FILE_NAMES)>0
                 namearray = [];
                 subjectnumber = 0;
+                if numel(FILE_NAMES)>1
+                    disp('Warning: more than one WTS list file in local folder: we take the last one')
+                    FILE_NAMES=FILE_NAMES(end);
+                end
+                    file = FILE_NAMES{1};
+                    warning off
+                    dataWTS = importdata(file,';',1); % import this data will result into double 2D array and text array for text fields
+                    warning on
+                    % iterate throught text data 
+                    for i = 2 : length(dataWTS.textdata(:,3))
 
-                % iterae throught text data 
-                for i = 2 : length(dataWTS.textdata(:,3))
+                        if   ~(strcmp(char(dataWTS.textdata(i,3)),char(dataWTS.textdata(i-1,3))))
+                            subjectnumber = subjectnumber+1;
+                            count = 1;
+                            nameTOFIND =  (dataWTS.textdata(i,3));
+                            namearray = [namearray;nameTOFIND]; % save subject IDs to be added to the final table
 
-                    if   ~(strcmp(char(dataWTS.textdata(i,3)),char(dataWTS.textdata(i-1,3))))
-                        subjectnumber = subjectnumber+1;
-                        count = 1;
-                        nameTOFIND =  (dataWTS.textdata(i,3));
-                        namearray = [namearray;nameTOFIND]; % save subject IDs to be added to the final table
+                            % convert education level to int
+                            nivEduc = char(dataWTS.textdata(i,5)); 
+                            nivEduc = nivEduc(1);
 
-                        % convert education level to int
-                        nivEduc = char(dataWTS.textdata(i,5)); 
-                        nivEduc = nivEduc(1);
+                            % convert gender to int 
+                            sexe = char(dataWTS.textdata(i,4)); 
+                            if strcmp(sexe,'Homme')
+                                sexeind = 1;
+                            else
+                                sexeind = 2;
+                            end
 
-                        % convert gender to int 
-                        sexe = char(dataWTS.textdata(i,4)); 
-                        if strcmp(sexe,'Homme')
-                            sexeind = 1;
+                            % compute age from birthdate
+                            datebirth = char(dataWTS.textdata(i,1));
+                            numdays = now - datenum(datebirth,'dd/MM/yyyy') ;% +100*365
+                            age = round(numdays/365);
+
                         else
-                            sexeind = 2;
+                            count = 2;
                         end
 
-                        % compute age from birthdate
-                        datebirth = char(dataWTS.textdata(i,1));
-                        numdays = now - datenum(datebirth,'dd/mm/yy') ;% +100*365
-                        age = round(numdays/365);
-
-                    else
-                        count = 2;
+                        if count == 1
+                            data(subjectnumber,:) = [age,str2double(nivEduc), sexeind, dataWTS.data(i-1,:)];
+                        else   % s'il s'agit du test ou les lignes sont décallées
+                            data(subjectnumber,22+3:25+3) = dataWTS.data(i-1,22:25);
+                        end
                     end
-
-                    if count == 1
-                        data(subjectnumber,:) = [age,str2double(nivEduc), sexeind, dataWTS.data(i-1,:)];
-                    else   % s'il s'agit du test ou les lignes sont décallées
-                        data(subjectnumber,22+3:25+3) = dataWTS.data(i-1,22:25);
-                    end
-                end
 
                 % adding columns names and data one by one to the table to export 
                 table_WTS = table(namearray,'VariableNames',WTS_VARIABLE_NAMES(1));
                 for i=1:length(WTS_VARIABLE_NAMES)-1
                     table_WTS = [table_WTS , table(data(:,i),'VariableNames',WTS_VARIABLE_NAMES(i+1))];
                 end
-                %writetable(table_WTS,[PROCESSED_DATA_DIR strrep(FILE_NAME(1).name,'csv','xls')])
+                %often, ID have added char after the actual ID, remove them 
+                table_WTS.Identifiant = cellfun(@(x) x(1:9), table_WTS.Identifiant, 'UniformOutput', false);
+                % remove duplicates assuming they are in chronological order and that the last one are the ones we want to keep
+                table_WTS=removeDuplicates(table_WTS);
                 writetable(table_WTS,fullfile(PROCESSED_DATA_DIR, 'WTS_Local_Data_One_File.xls'))
             end
         else
-           disp('None or more than one folder WTS_DATA was found in local path - we skip WTS local') 
+           disp('No WTS list file in WTS_DATA folder in local path.') 
         end
     end
     if WTS_DATA_ONE_FILE_FOR_ALL == 2 || WTS_DATA_ONE_FILE_FOR_ALL == 3 % if there is a file for each subject
@@ -80,14 +84,16 @@ function process_WTS(WTS_DATA_ONE_FILE_FOR_ALL)
             for i = 1 : length(folders)
                 files_WTS = dir(fullfile(WTS_DATA_PATH,folders(i).name,'*.csv'));
                 if length(files_WTS) == 1
+                    warning off
                     dataWTS = readtable(fullfile(files_WTS(1).folder,files_WTS(1).name));
+                    
                     dim = size(dataWTS);
                     dim=dim(1);
-                    
                     table_WTS{i,1} = dataWTS{1,3}; % Get the subject ID
+                    warning on
                     % get age 
                     datebirth = char(table2array(dataWTS(1,1)));
-                    numdays = now - datenum(datebirth,'dd/mm/yy');
+                    numdays = now - datenum(datebirth,'dd/mm/yyyy');
                     age = round(numdays/365);
                     table_WTS{i,2} = age;
                     % get education level
@@ -118,10 +124,10 @@ function process_WTS(WTS_DATA_ONE_FILE_FOR_ALL)
                 end
             end
             table_WTS.Properties.VariableNames = WTS_VARIABLE_NAMES;
-            %writetable(table_WTS,[PROCESSED_DATA_DIR 'WTS_Data_Multiple_Files_' strrep(datestr(datetime('today'),'dd-mm-yyyy'), '-','')  '.xls'] );
-            
-            %idx = ismember(table_WTS{:,2},0);
-            %table_WTS=table_WTS(~idx,:);
+            %often, ID have added char after the actual ID, remove them 
+            table_WTS.Identifiant = cellfun(@(x) x(1:9), table_WTS.Identifiant, 'UniformOutput', false);
+            % remove duplicates assuming they are in chronological order and that the last one are the ones we want to keep
+            table_WTS=removeDuplicates(table_WTS);
             writetable(table_WTS,fullfile(PROCESSED_DATA_DIR, 'WTS_Local_Data_Multiple_Files.xls'));
         end
     end
