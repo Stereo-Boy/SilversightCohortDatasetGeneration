@@ -45,6 +45,7 @@ Here is a list (for more description, see metadata https://docs.google.com/sprea
 *AUDIOGRAM
 *COG_T - cognitive task results (FES, GHQ, MMS, PERSP, STAI) - needs local mat files in a cogT_DATA folder
 *WTS - Wienna Test System - needs data lists in WTS_DATA folder in local folder and possibly additionaly individual WTS files in individual folders at the same location
+*FALLS - nb of falls and stumbles - needs a clean_falls.csv file and a correspondance table basecorrespondance.xlsx with animal/vegetal codings in local folder
 
 ## Important
 * in the config.m file, define the flags that you want to include in the dataset to be generated

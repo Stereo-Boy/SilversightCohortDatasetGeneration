@@ -15,24 +15,26 @@ EXECUTE_BAT=true;  % BAT measures the loss of acuity due to glare illumation (in
 EXECUTE_UFOV=true; % UFOV: needs an eCRF file UFOV.xlsx
 EXECUTE_OKF_FIXATION=true; % eye movements data during fixation - needs the following local files 'ISO95BDW0-125.mat', 'allDataMS.mat', 'ASerror.mat', 'ASlatency.mat' in a folder 'Eye_Tracking_Fixation'
 EXECUTE_ETDRS=true; % ETDRS / AV ETDRS ASC: far visual acuities - needs the eCRF file ETDRS.xls - negative values means better acuity. 2m data is disabled cause there are few subjects 
-EXECUTE_STEREO=true; % STEREO: stereo data (eRDS, upper disparity limit, Asteroid, butterfly stereoblindness test) - needs a local file stereo_master_file_XXXXXXXXX.xlsx and a correspondance table basecorrespondance.xlsx with animal/vegetal codings
+EXECUTE_STEREO=true; % STEREO: stereo data (eRDS, upper disparity limit, Asteroid, butterfly stereoblindness test) - needs a file stereo_master_file_XXXXXXXXX.xlsx and a correspondance table basecorrespondance.xlsx with animal/vegetal codings in the local folder
 EXECUTE_AUDIOGRAM=true;
 EXECUTE_COG_T=true; % cognitive task (FES, GHQ, MMS, PERSP, STAI) results - needs local mat files in a cogT_DATA folder
 EXECUTE_WTS=true; % Wienna Test System - needs data lists in WTS_DATA folder in local folder and possibly additionaly individual WTS files in individual folders at the same location
 EXECUTE_CQUANT = true; % Eye dispersion coefficient (Cataract Quantifier) - needs the eCRF file CQUANT.xlsx - lines with comments removed - log10 of straylight dispersion
+EXECUTE_FALLS = true; % Falls: nb of falls and stumbles - needs a clean_falls.csv file and a correspondance table basecorrespondance.xlsx with animal/vegetal codings in local folder
 
 % should always be true
 EXECUTE_DM = true; % This should always be true - Demographic data - sex at birth and date of birth (european format) - needs eCRF file DM.xlsx but also needs the eCRF file RFOK.xlsx
 
 %% other flags 
 % Setting Flags 
-HUE15_ECRF_DATA = 3; % 1: get the eCRF data, 2:get the local xlsx file data, 3: merge both eCRF and xlsx file data   
-PR_ECRF_DATA = 3; % 1: get the eCRF data, 2:get the local xlsx file data, 3: merge both eCRF and xlsx file data   
-WTS_DATA_ONE_FILE_FOR_ALL = 3; % 1: get the one file for all  data, 2:get the multi files data, 3: merge both   
+HUE15_ECRF_DATA = 3; % 1: get the eCRF data, 2:get the local xlsx data file, 3: merge both eCRF and xlsx data file
+PR_ECRF_DATA = 3; % 1: get the eCRF data, 2:get the local xlsx data file, 3: merge both eCRF and xlsx data file  
+WTS_DATA_ONE_FILE_FOR_ALL = 3; % 1: get the one file for all data, 2:get the multi data files, 3: merge both   
 AUDIO_GUI=false; % This is to enable the GUI App that generate the hearing assessment table
-UFOV_ECRF_DATA = 3; % 1: get the eCRF data, 2:get the local xlsx file data, 3: merge both eCRF and xlsx file data   
+UFOV_ECRF_DATA = 3; % 1: get the eCRF data, 2:get the local xlsx data file, 3: merge both eCRF and xlsx data file  
 COMPUTE_AGE=true; % a temporary solution to get age and birthdate since eCRF data is not full yet
-BAT_ECRF_DATA = 3; % 1: get the eCRF data, 2:get the local xlsx file data, 3: merge both eCRF and xlsx file data  
+BAT_ECRF_DATA = 3; % 1: get the eCRF data, 2:get the local xlsx data file, 3: merge both eCRF and xlsx data file
+FALLS_RAW = 2; % 2: no raw data, get processed data from a local csv data file only (sole option available so far but could add actual processing of raw data later as option 1)
 
 % Cleaning lists
 list2remove = {}; % list of subjects to remove based on 'Evénement indésirable Grave': 'B006ARM14','B039SPA14','B115BUD14','B165MOP14','B368ROM15'
@@ -77,6 +79,7 @@ WTS_VARIABLE_NAMES = {'Identifiant' 'age' 'niveauEducation'  'sex' ...
                         'INHIBS3DWIndiceDeSensibilite' 'INHIBS3FANNombreErreursDeCommission' 'INHIBS3VPNombreErreursOmission' 'INHIBS3MRZTempsDeReaactionMoyen' 'INHIBS3SDRZTypeDeTempsDeReaction'};                   
 RFOK_VARIABLE_NAMES={'Identifiant' 'rfok_date'};                    
 STEREO_VARIABLE_NAMES={'Identifiant','stereo_bs', 'stereo_erds','stereo_upper_limit','stereo_asteroid','stereo_date'}; 
-
+FALLS_VARIABLE_NAMES={'Identifiant','falls_n','falls_stumbles'};
+    
 %necessary to process local data (legacy code / do not modify or remove)
 BAT_OG_VARIABLE_NAMES = {'Identifiant' 'bat_wg100' 'bat_g100' 'bat_wg10' 'bat_g10' 'bat_wg5' 'bat_g5' 'bat_date'}; 

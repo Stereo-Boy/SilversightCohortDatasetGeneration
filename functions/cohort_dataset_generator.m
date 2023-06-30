@@ -25,6 +25,7 @@ if EXECUTE_AUDIOGRAM; audio_TABLE=getAudioTable(); end
 if EXECUTE_COG_T; cog_T_TABLE=getCOGTTable(); end
 if EXECUTE_WTS; wts_TABLE = getWTSTable(); end % age better be moved to different approach 
 if EXECUTE_STEREO; stereo_TABLE = getSTEREOTable(); end
+if EXECUTE_FALLS; falls_TABLE = getFallsTable(); end
 
 % Joining all tables into one big dataset (The Cohort Dataset)
 
@@ -55,6 +56,7 @@ if EXECUTE_COG_T; cohort_DATASET_TABLE = outerjoin(cohort_DATASET_TABLE,cog_T_TA
 if EXECUTE_WTS; cohort_DATASET_TABLE = outerjoin(cohort_DATASET_TABLE,wts_TABLE,'Keys','Identifiant','MergeKeys',true); end   
 if COMPUTE_AGE; cohort_DATASET_TABLE = compute_Cohort_Dataset_Age(cohort_DATASET_TABLE, dm_TABLE); end % compute age
 if EXECUTE_STEREO; cohort_DATASET_TABLE = outerjoin(cohort_DATASET_TABLE,stereo_TABLE,'Keys','Identifiant','MergeKeys',true); end   
+if EXECUTE_FALLS; cohort_DATASET_TABLE = outerjoin(cohort_DATASET_TABLE,falls_TABLE,'Keys','Identifiant','MergeKeys',true); end   
 
 % remove 'Evénement indésirable' subjects manualy based on the comments
 idx=~ismember(cohort_DATASET_TABLE{:,1},list2remove);

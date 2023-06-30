@@ -26,7 +26,7 @@ try
             ids = table(id_table.ID_animal,id_table.Identifiant,'VariableNames',{'animal','id'});
             % create asteroid score as the geometrical means of the three tests, when available
             stereo_data.ast = geomean([stereo_data.ast1,stereo_data.ast2,stereo_data.ast3],2,'omitnan');
-            % add Identifiant column to bs_data
+            % add Identifiant column to stereo_data
             recoded = outerjoin(stereo_data,ids,'Keys','animal','MergeKeys',true); 
             %remove empty score lines and empty date lines
             recoded(isnat(recoded.date),:)=[];          
